@@ -14,7 +14,8 @@ class WorkoutController extends BaseController {
   public init(): void {
     this.router.get('/all', this.getAll);
     this.router.post('/add', this.add);
-    this.router.post('/delete', this.delete)
+    this.router.post('/delete', this.delete);
+    this.router.post('/update', this.update);
   }
 
   public async getAll(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -48,6 +49,22 @@ class WorkoutController extends BaseController {
       const data = req.body;
 
       const workout = await WorkoutService.delete(data);
+
+      return res.json({ workout });
+    } catch (err) {
+      return next(err instanceof Error ? err : new VError(err));
+    }
+  }
+
+  public async update(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    logger.info('workoutController update route entered');
+    try {
+      const data = req.body;
+
+      const workout = await WorkoutService.update(data);
+
+      console.log('updated')
+      console.log(workout)
 
       return res.json({ workout });
     } catch (err) {

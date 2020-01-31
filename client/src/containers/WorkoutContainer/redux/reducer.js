@@ -13,8 +13,14 @@ import {
   fetchDeleteWorkoutSuccess,
   fetchDeleteWorkoutFailure,
 
+  fetchEditWorkoutRequest,
+  fetchEditWorkoutSuccess,
+  fetchEditWorkoutFailure,
+
   addCheckedWorkout,
   removeCheckedWorkout,
+
+  sortByDistance,
 } from './actions';
 
 const workoutDefaultState = {
@@ -88,92 +94,51 @@ const workoutReducer = handleActions(
         error: payload,
       };
     },
+    [fetchEditWorkoutRequest](state) {
+      return {
+        ...state,
+        isFetching: true,
+      };
+    },
+    [fetchEditWorkoutSuccess](state, { payload }) {
+      console.log(payload);
+      return {
+        ...state,
+        workouts: state.workouts.map((item) => {
+          if (item._id === payload._id) {
+            return {
+              ...item,
+              date: payload.date,
+              type: payload.type,
+              distance: payload.distance,
+            };
+          }
+          return item;
+        }),
+        isFetching: false,
+        error: 'null',
+      };
+    },
+    [fetchEditWorkoutFailure](state, { payload }) {
+      return {
+        ...state,
+        isFetching: false,
+        error: payload,
+      };
+    },
+    [sortByDistance](state) {
+      return {
+        ...state,
+        workouts: [...state.workouts.sort((curr, next) => {
+          if (curr.distance > next.distance) { return 1; }
+          if (curr.distance < next.distance) { return -1; }
+          return 0;
+        })],
+      };
+    },
   },
   workoutDefaultState,
 );
-//
-// const addWorkoutReducer = handleActions(
-//   {
-//     [fetchAddWorkoutRequest](state) {
-//       return {
-//         ...state,
-//         isFetching: true,
-//       };
-//     },
-//     [fetchAddWorkoutSuccess](state, { payload }) {
-//       console.log('add payload')
-//       console.log(payload)
-//       console.log('workouts')
-//       console.log(state)
-//       console.log('workouts + payload')
-//       console.log([...state.workouts])
-//       return {
-//         ...state,
-//         workouts: [...state.workouts, payload],
-//         isFetching: false,
-//         error: 'null',
-//       };
-//     },
-//     [fetchAddWorkoutFailure](state, { payload }) {
-//       return {
-//         ...state,
-//         isFetching: false,
-//         error: payload,
-//       };
-//     },
-//     [fetchDeleteWorkoutRequest](state) {
-//       return {
-//         ...state,
-//         isFetching: true,
-//       };
-//     },
-//     [fetchDeleteWorkoutSuccess](state, { payload }) {
-//       console.log(state)
-//       return {
-//         ...state,
-//         workouts: state.workouts.filter(item => payload.includes(item._id)),
-//         isFetching: false,
-//         error: null,
-//       };
-//     },
-//     [fetchDeleteWorkoutFailure](state, { payload }) {
-//       return {
-//         ...state,
-//         isFetching: false,
-//         error: payload,
-//       };
-//     },
-//   },
-//   workoutDefaultState,
-// );
-//
-// const deleteWorkoutReducer = handleActions(
-//   {
-//     [fetchDeleteWorkoutRequest](state) {
-//       return {
-//         ...state,
-//         isFetching: true,
-//       };
-//     },
-//     [fetchDeleteWorkoutSuccess](state, { payload }) {
-//       console.log(state)
-//       return {
-//         ...state,
-//         workouts: state.workouts.filter(item => payload.includes(item._id)),
-//         isFetching: false,
-//         error: null,
-//       };
-//     },
-//     [fetchDeleteWorkoutFailure](state, { payload }) {
-//       return {
-//         ...state,
-//         isFetching: false,
-//         error: payload,
-//       };
-//     },
-//   },
-//   workoutDefaultState,
-// );
 
 const checkedWorkoutsDefaultState = {
   checkedWorkoutsList: [],
@@ -188,7 +153,7 @@ const checkedWorkoutsReducers = handleActions(
     },
     [removeCheckedWorkout](state, { payload }) {
       return {
-        checkedWorkoutsList: state.checkedWorkoutsList.filter(item => item !== payload),
+        checkedWorkoutsList: state.checkedWorkoutsList.filter(item => !payload.includes(item._id)),
       };
     },
   },

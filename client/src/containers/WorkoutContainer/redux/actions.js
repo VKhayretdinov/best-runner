@@ -32,7 +32,7 @@ export const fetchAddWorkout = newWorkout => async (dispatch) => {
       distance: newWorkout.distance,
     };
 
-    const response = await api.workout.add(data);
+    const response = await api.workout.create(data);
 
     const { workout } = response.data;
 
@@ -62,7 +62,32 @@ export const fetchEditWorkoutRequest = createAction('FETCH_EDIT_WORKOUT_REQUEST'
 export const fetchEditWorkoutSuccess = createAction('FETCH_EDIT_WORKOUT_SUCCESS');
 export const fetchEditWorkoutFailure = createAction('FETCH_EDIT_WORKOUT_FAILURE');
 
+export const fetchEditWorkout = editedWorkout => async (dispatch) => {
+  try {
+    dispatch(fetchEditWorkoutRequest());
+
+    console.log('editedWorkout')
+    console.log(editedWorkout)
+    const response = await api.workout.update(editedWorkout);
+
+    const { workout } = response.data;
+    console.log('model')
+    console.log(workout)
+
+    dispatch(fetchEditWorkoutSuccess(workout));
+  } catch (error) {
+    dispatch(fetchEditWorkoutFailure(error));
+  }
+};
+
+
 export const { addCheckedWorkout, removeCheckedWorkout } = createActions({
   addCheckedWorkout: workoutName => (workoutName),
   removeCheckedWorkout: workoutName => (workoutName),
 });
+
+export const sortByDistance = createAction('SORT_WORKOUTS_BY_DISTANCE');
+
+export const sortWorkoutsByDistance = () => async (dispatch) => {
+  dispatch(sortByDistance());
+};

@@ -14,22 +14,27 @@ class WorkoutContainer extends Component {
   static propTypes = {
     showModal: PropTypes.func.isRequired,
     fetchDeleteWorkout: PropTypes.func.isRequired,
-    checkedWorkouts: PropTypes.arrayOf(PropTypes.string).isRequired,
+    checkedWorkouts: PropTypes.arrayOf(PropTypes.object).isRequired,
     setVisibleAlert: PropTypes.func.isRequired,
   };
 
   showAddWorkoutModal = () => {
-    this.props.showModal('AddWorkoutModal');
+    const modalProps = { isInitValue: false };
+
+    this.props.showModal('WorkoutModal', modalProps);
   };
 
   deleteWorkout = () => {
-    this.props.fetchDeleteWorkout(this.props.checkedWorkouts);
+    const workoutIds = this.props.checkedWorkouts.map(item => item._id);
+
+    this.props.fetchDeleteWorkout(workoutIds);
   };
 
   showEditWorkoutModal = () => {
     if (this.props.checkedWorkouts.length === 1) {
+      const modalProps = { isInitValue: true };
 
-      this.props.showModal('EditWorkoutModal');
+      this.props.showModal('WorkoutModal', modalProps);
     } else {
       this.props.setVisibleAlert(true);
       window.setTimeout(() => {
@@ -86,6 +91,7 @@ class WorkoutContainer extends Component {
 const mapStateToProps = state => ({
   workouts: state.workout.workouts.workouts,
   checkedWorkouts: state.workout.checkedWorkouts.checkedWorkoutsList,
+  form: state.form,
 });
 
 const mapDispatchToProps = {

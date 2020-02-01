@@ -21,10 +21,13 @@ import {
   removeCheckedWorkout,
 
   sortByDistance,
+  sortByDate,
+  filterByTypes,
 } from './actions';
 
 const workoutDefaultState = {
   workouts: [],
+  unFilteredWorkouts: [],
   isFetching: false,
   error: null,
 };
@@ -41,6 +44,7 @@ const workoutReducer = handleActions(
       return {
         ...state,
         workouts: [...payload],
+        unFilteredWorkouts: [...payload],
         isFetching: false,
         error: null,
       };
@@ -62,6 +66,7 @@ const workoutReducer = handleActions(
       return {
         ...state,
         workouts: [...state.workouts, payload],
+        unFilteredWorkouts: [...state.unFilteredWorkouts, payload],
         isFetching: false,
         error: 'null',
       };
@@ -82,7 +87,8 @@ const workoutReducer = handleActions(
     [fetchDeleteWorkoutSuccess](state, { payload }) {
       return {
         ...state,
-        workouts: state.workouts.filter(item => !payload.includes(item._id)),
+        workouts: state.workouts.filter(item => !payload.some(i => i._id === item._id)),
+        unFilteredWorkouts: state.unFilteredWorkouts.filter(item => !payload.some(i => i._id === item._id)),
         isFetching: false,
         error: null,
       };
@@ -101,10 +107,20 @@ const workoutReducer = handleActions(
       };
     },
     [fetchEditWorkoutSuccess](state, { payload }) {
-      console.log(payload);
       return {
         ...state,
         workouts: state.workouts.map((item) => {
+          if (item._id === payload._id) {
+            return {
+              ...item,
+              date: payload.date,
+              type: payload.type,
+              distance: payload.distance,
+            };
+          }
+          return item;
+        }),
+        unFilteredWorkouts: state.unFilteredWorkouts.map((item) => {
           if (item._id === payload._id) {
             return {
               ...item,
@@ -129,11 +145,30 @@ const workoutReducer = handleActions(
     [sortByDistance](state) {
       return {
         ...state,
-        workouts: [...state.workouts.sort((curr, next) => {
-          if (curr.distance > next.distance) { return 1; }
-          if (curr.distance < next.distance) { return -1; }
-          return 0;
-        })],
+        workouts: [...state.workouts.sort((curr, next) => (
+          curr.distance > next.distance ? 1 : -1))],
+        unFilteredWorkouts: [...state.unFilteredWorkouts.sort((curr, next) => (
+          curr.distance > next.distance ? 1 : -1))],
+      };
+    },
+    [sortByDate](state) {
+      return {
+        ...state,
+        workouts: [...state.workouts.sort((curr, next) => (curr.date > next.date ? 1 : -1))],
+        unFilteredWorkouts: [...state.unFilteredWorkouts.sort((curr, next) => (curr.date > next.date ? 1 : -1))],
+      };
+    },
+    [filterByTypes](state, { payload }) {
+      if (payload.length === 0) {
+        return {
+          ...state,
+          workouts: state.unFilteredWorkouts,
+        };
+      }
+
+      return {
+        ...state,
+        workouts: state.unFilteredWorkouts.filter(item => [...payload].indexOf(item.type) > -1),
       };
     },
   },
@@ -152,15 +187,33 @@ const checkedWorkoutsReducers = handleActions(
       };
     },
     [removeCheckedWorkout](state, { payload }) {
+      console.log(payload);
       return {
-        checkedWorkoutsList: state.checkedWorkoutsList.filter(item => !payload.includes(item._id)),
+        checkedWorkoutsList: state.checkedWorkoutsList.filter(item => !payload.some(i => i._id === item._id)),
       };
     },
   },
   checkedWorkoutsDefaultState,
 );
 
+const workoutOptionsDefaultState = {
+  workoutOptions: [
+    { label: 'running', value: 'running' },
+    { label: 'bike', value: 'bike' },
+    { label: 'walking', value: 'walking' },
+    { label: 'skiing', value: 'skiing' },
+  ],
+};
+
+const workoutOptionsReducers = handleActions(
+  {
+  },
+  workoutOptionsDefaultState,
+);
+
+
 export default combineReducers({
   workouts: workoutReducer,
   checkedWorkouts: checkedWorkoutsReducers,
+  workoutOptions: workoutOptionsReducers,
 });

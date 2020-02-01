@@ -8,18 +8,9 @@ import {
 import { Field } from 'redux-form';
 import { CustomField, Select } from '../../../../../shared/redux-form-components';
 
-// TODO: options
-
-const options = [
-  { label: 'running', value: 'running' },
-  { label: 'bike', value: 'bike' },
-  { label: 'walking', value: 'walking' },
-  { label: 'skiing', value: 'skiing' },
-];
-
 const required = value => (value ? undefined : 'Required');
 
-const WorkoutForm = ({ handleSubmit, onSubmit }) => (
+const WorkoutForm = ({ handleSubmit, onSubmit, workoutOptions, options }) => (
   <Form onSubmit={handleSubmit(onSubmit)}>
     <CustomField
       id="date"
@@ -51,7 +42,7 @@ const WorkoutForm = ({ handleSubmit, onSubmit }) => (
       color="primary"
       className="mr-3"
     >
-      Add
+      Confirm
     </Button>
   </Form>
 );

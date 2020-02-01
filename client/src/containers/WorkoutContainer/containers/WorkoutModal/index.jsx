@@ -17,44 +17,46 @@ class WorkoutModal extends Component {
     // isDefault: PropTypes.bool.isRequired,
   };
 
-  componentWillMount() {
-
-  }
-
   closeModal = (e) => {
     e.preventDefault();
     this.props.hideModal();
   };
 
-  handleAddWorkoutSubmit = (formValues) => {
-    this.props.fetchAddWorkout(formValues);
-  };
+  handleAddWorkoutSubmit = formValues => this.props.fetchAddWorkout(formValues).then(r => (r));
 
   handleEditWorkoutSubmit = (formValues) => {
-    console.log(formValues);
     this.props.fetchEditWorkout(formValues);
   };
 
   handleSubmit = (formValues) => {
-    if (this.props.modalProps.isInitValue) {
+    let res;
+
+    if (this.props.isInitValue) {
       const workout = Object.assign({}, this.props.checkedWorkouts[0]);
 
       workout.date = formValues.date;
       workout.type = formValues.type.value;
       workout.distance = formValues.distance;
 
-      this.handleEditWorkoutSubmit(workout);
+      res = this.handleEditWorkoutSubmit(workout);
     } else {
-      this.handleAddWorkoutSubmit(formValues);
+      res = this.handleAddWorkoutSubmit(formValues);
     }
+    if (res) { this.props.hideModal(); }
   };
 
   initValues = () => {
-    const checked = Object.assign({}, this.props.checkedWorkouts[0]);
+    console.log('HUY')
+    console.log(this.props.workoutOptions)
+    if (this.props.isInitValue) {
+      const checked = Object.assign({}, this.props.checkedWorkouts[0]);
 
-    checked.type = { label: checked.type, value: checked.type };
+      checked.type = { label: checked.type, value: checked.type };
+      console.log(checked)
+      return checked;
+    }
 
-    return checked;
+    return {};
   };
 
 
@@ -64,15 +66,16 @@ class WorkoutModal extends Component {
         <StyledClose onClick={this.closeModal}>
           <CloseIcon />
         </StyledClose>
-        <AddEditWorkout onSubmit={this.handleSubmit} initValues={this.initValues} />
+        <AddEditWorkout onSubmit={this.handleSubmit} initValues={this.initValues} options={this.props.workoutOptions} />
       </StyledModalContent>);
   }
 }
 
 const mapStateToProps = state => ({
   workouts: state.workout.workouts.workouts,
-  modalProps: state.modal.modalProps,
+  isInitValue: state.modal.modalProps.isInitValue,
   checkedWorkouts: state.workout.checkedWorkouts.checkedWorkoutsList,
+  workoutOptions: state.workout.workoutOptions.workoutOptions,
 });
 
 const mapDispatchToProps = {

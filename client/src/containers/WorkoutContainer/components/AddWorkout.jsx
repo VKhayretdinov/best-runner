@@ -1,20 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
-import AddWorkoutForm from './AddWorkoutForm';
+import { connect } from 'react-redux';
 import WorkoutForm from './WorkoutForm';
 
 const AddWorkout = ({ handleSubmit, onSubmit }) => (
   <WorkoutForm
     handleSubmit={handleSubmit}
     onSubmit={onSubmit}
-    fieldValues={
-      {
-        date: '2020-12-12',
-        type: 'bike',
-        distance: 10,
-      }}
-
   />
 );
 
@@ -23,6 +16,11 @@ AddWorkout.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default reduxForm({
+const mapStateToProps = (state, props) => ({
+  initialValues: { date: '2018-08-22', type: {label: "bike", value: "bike"}, distance: 100 },
+});
+
+export default connect(mapStateToProps)(reduxForm({
   form: 'addWorkoutForm',
-})(AddWorkout);
+  enableReinitialize: true,
+})(AddWorkout));

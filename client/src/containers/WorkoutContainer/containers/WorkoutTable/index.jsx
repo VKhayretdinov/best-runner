@@ -8,6 +8,7 @@ import {
   addCheckedWorkout,
   removeCheckedWorkout,
   sortWorkoutsByDistance,
+  sortWorkoutsByDate,
 } from '../../redux/actions';
 
 class WorkoutTable extends Component {
@@ -42,12 +43,16 @@ class WorkoutTable extends Component {
     if (checkbox.checked) {
       this.props.addCheckedWorkout(workout);
     } else {
-      this.props.removeCheckedWorkout(workout);
+      this.props.removeCheckedWorkout([workout]);
     }
   };
 
   handleDistanceClick = () => {
     this.props.sortWorkoutsByDistance();
+  };
+
+  handleDateClick = () => {
+    this.props.sortWorkoutsByDate();
   };
 
   render() {
@@ -60,7 +65,7 @@ class WorkoutTable extends Component {
             <thead>
               <tr>
                 <th>Select</th>
-                <th>Date</th>
+                <th onClick={this.handleDateClick}>Date</th>
                 <th>Type</th>
                 <th onClick={this.handleDistanceClick}>Distance</th>
               </tr>
@@ -94,6 +99,7 @@ const mapDispatchToProps = {
   addCheckedWorkout,
   removeCheckedWorkout,
   sortWorkoutsByDistance,
+  sortWorkoutsByDate,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutTable);

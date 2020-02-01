@@ -4,10 +4,11 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import WorkoutForm from './WorkoutForm';
 
-const AddEditWorkout = ({ handleSubmit, onSubmit, initValues }) => (
+const AddEditWorkout = ({ handleSubmit, onSubmit, initValues, options }) => (
   <WorkoutForm
     handleSubmit={handleSubmit}
     onSubmit={onSubmit}
+    options={options}
   />
 );
 

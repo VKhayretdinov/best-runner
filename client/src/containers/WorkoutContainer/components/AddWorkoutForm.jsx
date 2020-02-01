@@ -8,13 +8,6 @@ import {
 import { Field } from 'redux-form';
 import { CustomField, Select } from '../../../shared/redux-form-components';
 
-const options = [
-  { label: 'running', value: 'running' },
-  { label: 'bike', value: 'bike' },
-  { label: 'walking', value: 'walking' },
-  { label: 'skiing', value: 'skiing' },
-];
-
 const required = value => (value ? undefined : 'Required');
 
 const AddWorkoutForm = ({ handleSubmit, onSubmit }) => (
@@ -32,7 +25,7 @@ const AddWorkoutForm = ({ handleSubmit, onSubmit }) => (
       name="type"
       id="type"
       component={Select}
-      options={options}
+      options={this.props.workoutOptions}
       validate={[required]}
     />
     <CustomField
@@ -57,6 +50,7 @@ const AddWorkoutForm = ({ handleSubmit, onSubmit }) => (
 AddWorkoutForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  workoutOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default AddWorkoutForm;

@@ -16,8 +16,8 @@ import WorkoutModal from '../../containers/WorkoutContainer/containers/WorkoutMo
 const modals = {
   SimpleExampleModal,
   CustomExampleModal,
-  AddWorkoutModal,
-  EditWorkoutModal,
+  // AddWorkoutModal,
+  // EditWorkoutModal,
   WorkoutModal
 };
 

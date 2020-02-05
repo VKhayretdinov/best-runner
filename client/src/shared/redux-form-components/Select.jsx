@@ -7,7 +7,7 @@ export default class ReduxformSelect extends Component {
   static propTypes = {
     input: PropTypes.shape({ onChange: PropTypes.func }).isRequired,
     children: PropTypes.func,
-    // eslint-disable-next-line react/forbid-prop-types
+    // eslint-disable-next-line react/forbid-prop-prop-types
     options: PropTypes.object,
   };
 

@@ -1,16 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import WorkoutsTable from './components/WorkoutsTable';
-import { showModal } from '../../shared/modal/redux/actions';
-import { setVisibleAlert } from '../../shared/alert/redux/actions';
-import { fetchDeleteWorkout, fetchWorkout, removeCheckedWorkout } from './redux/actions';
+import { WorkoutsArray } from '../../shared/prop-types';
+import { fetchWorkouts } from './redux/actions';
 
 class WorkoutContainer extends Component {
   static propTypes = {
-
+    workouts: WorkoutsArray.isRequired,
+    fetchWorkouts: PropTypes.func.isRequired,
   };
+
+  componentDidMount() {
+    this.props.fetchWorkouts();
+  }
 
   render() {
     return (
@@ -18,7 +22,7 @@ class WorkoutContainer extends Component {
         <Row className="mb-3" />
         <Row>
           <Col>
-            <WorkoutsTable />
+            <WorkoutsTable workouts={this.props.workouts} />
           </Col>
         </Row>
       </Fragment>
@@ -31,11 +35,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchWorkout,
-  fetchDeleteWorkout,
-  removeCheckedWorkout,
-  showModal,
-  setVisibleAlert,
+  fetchWorkouts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutContainer);

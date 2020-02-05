@@ -6,4 +6,6 @@ export const Workout = PropTypes.shape({
   type: PropTypes.string.isRequired,
   distance: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
-});
+}).isRequired;
+
+export const WorkoutsArray = PropTypes.arrayOf(Workout);

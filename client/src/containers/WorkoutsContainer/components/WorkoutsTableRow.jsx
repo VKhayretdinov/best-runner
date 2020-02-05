@@ -1,5 +1,5 @@
 import React from 'react';
-import { Workout } from '../../../shared/types';
+import { Workout } from '../../../shared/prop-types';
 
 const WorkoutTablesRow = ({
   workout,

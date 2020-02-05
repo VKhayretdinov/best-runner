@@ -1,4 +1,4 @@
-import { createAction, createActions } from 'redux-actions';
+import { createAction } from 'redux-actions';
 import api from '../../../utils/ApiClient';
 
 export const fetchWorkoutRequest = createAction('FETCH_WORKOUT_REQUEST');

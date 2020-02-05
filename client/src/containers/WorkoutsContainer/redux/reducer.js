@@ -18,9 +18,9 @@ import {
   fetchUpdateWorkoutFailure,
 } from './actions';
 
-const updateWorkouts = (oldWorkouts, updated) => {
-  // eslint-disable-next-line array-callback-return
-  return oldWorkouts.map((workout) => {
+const updateWorkouts = (oldWorkouts, updated) => (
+  // eslint-disable-next-line array-callback-return,consistent-return
+  oldWorkouts.map((workout) => {
     // eslint-disable-next-line no-underscore-dangle
     if (workout._id === updated._id) {
       return {
@@ -31,8 +31,8 @@ const updateWorkouts = (oldWorkouts, updated) => {
         comment: updated.comment,
       };
     }
-  });
-};
+  })
+);
 
 const workoutDefaultState = {
   workouts: [],

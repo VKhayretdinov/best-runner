@@ -4,9 +4,7 @@ import exampleReducer from '../../ExampleContrainer/redux/reducer';
 import signUpReducer from '../../SignUpContainer/redux/reducer';
 import signInReducer from '../../SignInContainer/redux/reducer';
 import currentUserReducer from './currentUserReducer';
-import workoutReducer from '../../WorkoutContainer/redux/reducer';
-import alertReducer from '../../../shared/alert/redux/reducer';
-import workoutHeaderReducer from '../../WorkoutContainer/containers/WorkoutHeader/redux/reducer'
+import workoutReducer from '../../WorkoutsContainer/redux/reducer';
 
 export default {
   form: reduxFormReducer,
@@ -16,6 +14,4 @@ export default {
   signIn: signInReducer,
   currentUser: currentUserReducer,
   workout: workoutReducer,
-  alert: alertReducer,
-  workoutHeader: workoutHeaderReducer,
 };

@@ -1,5 +1,5 @@
 // import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+// import PropTypes from 'prop-prop-types';
 // import { connect } from 'react-redux';
 // import {
 //   StyledModalContent,
@@ -10,7 +10,7 @@
 // import AddWorkout from './AddWorkout';
 // import { fetchAddWorkout } from '../redux/actions';
 //
-// class EditWorkoutModal extends Component {
+// class AddWorkoutModal extends Component {
 //   static propTypes = {
 //     hideModal: PropTypes.func.isRequired,
 //     fetchAddWorkout: PropTypes.func.isRequired,
@@ -21,7 +21,7 @@
 //     this.props.hideModal();
 //   };
 //
-//   handleEditWorkoutSubmit = (formValues) => {
+//   handleWorkoutSubmit = (formValues) => {
 //     this.props.fetchAddWorkout(formValues);
 //   };
 //
@@ -31,19 +31,18 @@
 //         <StyledClose onClick={this.closeModal}>
 //           <CloseIcon />
 //         </StyledClose>
-//         <AddWorkout onSubmit={this.handleEditWorkoutSubmit} />
+//         <AddWorkout onSubmit={this.handleWorkoutSubmit} />
 //       </StyledModalContent>);
 //   }
 // }
 //
 // const mapStateToProps = state => ({
 //   workouts: state.workout.workouts.workouts,
-//   form: state.fo
 // });
 //
 // const mapDispatchToProps = {
 //   hideModal,
-//   // fetchAddWorkout,
+//   fetchAddWorkout,
 // };
 //
-// export default connect(mapStateToProps, mapDispatchToProps)(EditWorkoutModal);
+// export default connect(mapStateToProps, mapDispatchToProps)(AddWorkoutModal);

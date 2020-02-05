@@ -7,18 +7,12 @@ import withSpinner from '../hocs/withSpinner';
 
 import SimpleExampleModal from '../../containers/ExampleContrainer/containers/ExampleModal/components/SimpleModal';
 import CustomExampleModal from '../../containers/ExampleContrainer/containers/ExampleModal/components/CustomModal';
-import AddWorkoutModal from '../../containers/WorkoutContainer/components/AddWorkoutModal';
-import EditWorkoutModal from '../../containers/WorkoutContainer/components/EditWorkoutModal';
-import WorkoutModal from '../../containers/WorkoutContainer/containers/WorkoutModal';
 
 // Array contains all custom modals from app
 // To successfully open modal, type prop in "showModal" action should match name from this array
 const modals = {
   SimpleExampleModal,
   CustomExampleModal,
-  // AddWorkoutModal,
-  // EditWorkoutModal,
-  WorkoutModal
 };
 
 class MainModal extends Component {

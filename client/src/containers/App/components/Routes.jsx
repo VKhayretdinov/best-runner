@@ -5,7 +5,7 @@ import ExampleContainer from '../../ExampleContrainer/index';
 import SignUpContainer from '../../SignUpContainer/index';
 import SignInContainer from '../../SignInContainer/index';
 import PrivateRoute from './PrivateRoute';
-import WorkoutContainer from '../../WorkoutContainer';
+import WorkoutsContainer from '../../WorkoutsContainer';
 
 const Routes = () => (
   <Switch>
@@ -14,7 +14,7 @@ const Routes = () => (
     <PrivateRoute path="/private" component={ExampleContainer} />
     <Route path="/signup" component={SignUpContainer} />
     <Route path="/signin" component={SignInContainer} />
-    <Route path="/workouts" component={WorkoutContainer} />
+    <Route path="/workouts" component={WorkoutsContainer} />
   </Switch>
 );
 

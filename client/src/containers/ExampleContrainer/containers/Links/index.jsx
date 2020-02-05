@@ -21,7 +21,7 @@ class LinksContainer extends Component {
     this.props.fetchLinks();
   }
 
-  handleLinksFormSubmit = formValues => console.log(formValues);
+  // handleLinksFormSubmit = formValues => console.log(formValues);
 
   render() {
     return (

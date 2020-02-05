@@ -48,7 +48,7 @@ class ExampleComponent extends Component {
       throw new SubmissionError(error);
     }
 
-    console.log(formValues);
+    // console.log(formValues);
   };
 
   render() {

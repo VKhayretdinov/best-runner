@@ -1,18 +1,19 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import PropTypes from 'prop-types';
 import WorkoutsTableRow from './WorkoutsTableRow';
-import { Workout } from '../../../shared/types';
+import { WorkoutsArray } from '../../../shared/prop-types';
 
 const fetchRows = workouts => workouts.map(workout => <WorkoutsTableRow workout={workout} />);
 
 const WorkoutsTable = ({ workouts }) => (
   <Table dark hover bordered>
     <thead>
-      <th>Date</th>
-      <th>Type</th>
-      <th>Distance</th>
-      <th>Action</th>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Distance</th>
+        <th>Action</th>
+      </tr>
     </thead>
     <tbody>
       {fetchRows(workouts)}
@@ -21,7 +22,7 @@ const WorkoutsTable = ({ workouts }) => (
 );
 
 WorkoutsTable.propTypes = {
-  workouts: PropTypes.arrayOf(Workout).isRequired,
+  workouts: WorkoutsArray.isRequired,
 };
 
 export default WorkoutsTable;

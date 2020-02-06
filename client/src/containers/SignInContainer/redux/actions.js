@@ -5,7 +5,7 @@ export const fetchSignInRequest = createAction('FETCH_SIGN_IN_REQUEST');
 export const fetchSignInSuccess = createAction('FETCH_SIGN_IN_SUCCESS');
 export const fetchSignInFailure = createAction('FETCH_SIGN_IN_FAILURE');
 
-export const fetchSignIn = credentials => async (dispatch) => {
+export const fetchSignIn = (credentials, history) => async (dispatch) => {
   try {
     dispatch(fetchSignInRequest());
 
@@ -15,6 +15,8 @@ export const fetchSignIn = credentials => async (dispatch) => {
     localStorage.setItem('token', token);
 
     dispatch(fetchSignInSuccess());
+
+    history.push('/');
   } catch (error) {
     dispatch(fetchSignInFailure(error));
   }

@@ -7,22 +7,26 @@ import BaseController from '../BaseController';
 import config from '../../config';
 import WorkoutModel, { Workout } from '../../models/WorkoutModel';
 import { type } from 'os';
+import passport from '../../middlewares/Passport';
 
 const logger = new Logger();
 
 class WorkoutController extends BaseController {
   public init(): void {
-    this.router.get('/all', this.getAll);
-    this.router.post('/add', this.add);
-    this.router.post('/delete', this.delete);
-    this.router.post('/update', this.update);
+    this.router.get('/all', passport.authenticate('jwt', { session: false }), this.getAll);
+    this.router.post('/create', passport.authenticate('jwt', { session: false }), this.create);
+    this.router.post('/delete', passport.authenticate('jwt', { session: false }), this.delete);
+    this.router.post('/update', passport.authenticate('jwt', { session: false }), this.update);
   }
 
   public async getAll(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     logger.info('workoutController index route entered');
 
     try {
-      const workouts = await WorkoutService.getAll();
+      const user = req.user;
+
+      const workouts: Workout[] = await WorkoutService.getAll(user._id);
+      console.log(workouts)
 
       return res.json({ workouts });
     } catch (err) {
@@ -30,12 +34,10 @@ class WorkoutController extends BaseController {
     }
   }
 
-  public async add(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+  public async create(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     logger.info('workoutController add route entered');
     try {
-      const data = req.body;
-
-      const workout = await WorkoutService.add(data);
+      const workout = await WorkoutService.create(req.user._id, req.body);
 
       return res.json({ workout });
     } catch (err) {
@@ -46,9 +48,7 @@ class WorkoutController extends BaseController {
   public async delete(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     logger.info('workoutController remove route entered');
     try {
-      const data = req.body;
-
-      const workout = await WorkoutService.delete(data);
+      const workout = await WorkoutService.delete(req.user.id, req.body);
 
       return res.json({ workout });
     } catch (err) {
@@ -59,14 +59,12 @@ class WorkoutController extends BaseController {
   public async update(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     logger.info('workoutController update route entered');
     try {
-      const data = req.body;
-
-      const workout = await WorkoutService.update(data);
+      const workouts = await WorkoutService.update(req.user._id, req.body);
 
       console.log('updated')
-      console.log(workout)
+      console.log(workouts)
 
-      return res.json({ workout });
+      return res.json({ workouts });
     } catch (err) {
       return next(err instanceof Error ? err : new VError(err));
     }

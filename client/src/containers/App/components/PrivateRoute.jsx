@@ -13,7 +13,7 @@ const PrivateRoute = ({
   const WithSpinner = withSpinner(component);
 
   if (!isFetching && !isLogged) {
-    return <Redirect from={path} to="/" />;
+    return <Redirect from={path} to="/signin" />;
   }
 
   return <Route path={path} render={props => <WithSpinner {...props} isFetching={isFetching} />} />;

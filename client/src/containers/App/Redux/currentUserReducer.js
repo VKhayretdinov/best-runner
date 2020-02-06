@@ -3,6 +3,10 @@ import {
   fetchCurrentUserRequest,
   fetchCurrentUserSuccess,
   fetchCurrentUserFailure,
+
+  fetchLogOutRequest,
+  fetchLogOutSuccess,
+  fetchLogOutFailure,
 } from './actions';
 
 const defaultState = {
@@ -28,6 +32,27 @@ export default handleActions(
       };
     },
     [fetchCurrentUserFailure](state, { payload }) {
+      return {
+        ...state,
+        isFetching: false,
+        error: payload,
+      };
+    },
+    [fetchLogOutRequest](state) {
+      return {
+        ...state,
+        isFetching: true,
+      };
+    },
+    [fetchLogOutSuccess](state, { payload }) {
+      return {
+        ...state,
+        data: payload,
+        isFetching: false,
+        error: null,
+      };
+    },
+    [fetchLogOutFailure](state, { payload }) {
       return {
         ...state,
         isFetching: false,

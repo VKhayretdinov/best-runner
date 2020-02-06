@@ -26,3 +26,22 @@ export const fetchCurrentUser = () => async (dispatch) => {
     dispatch(fetchCurrentUserFailure(error));
   }
 };
+
+export const fetchLogOutRequest = createAction('FETCH_LOG_OUT_REQUEST');
+export const fetchLogOutSuccess = createAction('FETCH_LOG_OUT_SUCCESS');
+export const fetchLogOutFailure = createAction('FETCH_LOG_OUT_FAILURE');
+
+export const fetchLogOut = history => async (dispatch) => {
+  try {
+    dispatch(fetchLogOutRequest());
+    // TODO: Check api result
+    await api.auth.logout();
+    localStorage.clear();
+
+    dispatch(fetchLogOutSuccess());
+
+    history.push('/signin')
+  } catch (error) {
+    dispatch(fetchLogOutFailure(error));
+  }
+};

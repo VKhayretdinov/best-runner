@@ -1,5 +1,5 @@
 import 'mocha';
-import 'chai-http'; // for types
+import 'chai-http'; // for prop-types
 import * as chai from 'chai';
 import MongoDB from '../../src/MongoDB';
 

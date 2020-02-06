@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import { fetchSignIn } from './redux/actions';
 
 class SignInContainer extends Component {
   static propTypes = {
-    fetchSignIn: Proptypes.func.isRequired,
+    fetchSignIn: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
   };
 
-  handleSignInFormSubmit = formValues => this.props.fetchSignIn(formValues);
+  handleSignInFormSubmit = (formValues) => {
+    this.props.fetchSignIn(formValues, this.props.history);
+  };
 
   render() {
     return (
@@ -25,4 +31,8 @@ class SignInContainer extends Component {
   }
 }
 
-export default connect(null, { fetchSignIn })(SignInContainer);
+const mapStateToProps = state => ({
+  isLogged: !!state.currentUser.data,
+});
+
+export default connect(mapStateToProps, { fetchSignIn })(withRouter(SignInContainer));

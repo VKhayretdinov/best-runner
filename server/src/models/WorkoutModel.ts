@@ -12,6 +12,9 @@ export class Workout extends Typegoose {
 
   @prop({ required: true })
   public distance: number;
+
+  @prop()
+  public comment: string;
 }
 
 const WorkoutModel = new Workout().getModelForClass(Workout);

@@ -5,7 +5,7 @@ const WorkoutTablesRow = ({
   workout,
 }) => {
   const {
-    id, date, type, distance,
+    date, type, distance, id,
   } = workout;
 
   return (

@@ -7,16 +7,16 @@ import BaseController from '../BaseController';
 import config from '../../config';
 import WorkoutModel, { Workout } from '../../models/WorkoutModel';
 import { type } from 'os';
-import passport from '../../middlewares/Passport';
+import Passport from '../../middlewares/Passport';
 
 const logger = new Logger();
 
 class WorkoutController extends BaseController {
   public init(): void {
-    this.router.get('/all', passport.authenticate('jwt', { session: false }), this.getAll);
-    this.router.post('/create', passport.authenticate('jwt', { session: false }), this.create);
-    this.router.post('/delete', passport.authenticate('jwt', { session: false }), this.delete);
-    this.router.post('/update', passport.authenticate('jwt', { session: false }), this.update);
+    this.router.get('/all', Passport.authenticate('jwt', { session: false }), this.getAll);
+    this.router.post('/create', Passport.authenticate('jwt', { session: false }), this.create);
+    this.router.post('/delete', Passport.authenticate('jwt', { session: false }), this.delete);
+    this.router.post('/update', Passport.authenticate('jwt', { session: false }), this.update);
   }
 
   public async getAll(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -36,6 +36,7 @@ class WorkoutController extends BaseController {
   public async create(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     logger.info('workoutController add route entered');
     try {
+
       const workout = await WorkoutService.create(req.user._id, req.body);
 
       return res.json({ workout });
@@ -59,9 +60,6 @@ class WorkoutController extends BaseController {
     logger.info('workoutController update route entered');
     try {
       const workouts = await WorkoutService.update(req.user._id, req.body);
-
-      console.log('updated')
-      console.log(workouts)
 
       return res.json({ workouts });
     } catch (err) {

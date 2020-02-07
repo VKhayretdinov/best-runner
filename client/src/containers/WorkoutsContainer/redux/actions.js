@@ -30,9 +30,7 @@ export const fetchCreateWorkout = workout => async (dispatch) => {
 
     const response = await api.workout.create(workout);
 
-    const { newWorkout } = response.data;
-
-    await dispatch(fetchCreateWorkoutSuccess(newWorkout));
+    await dispatch(fetchCreateWorkoutSuccess(response.data.workout));
   } catch (error) {
     dispatch(fetchCreateWorkoutFailure(error));
   }

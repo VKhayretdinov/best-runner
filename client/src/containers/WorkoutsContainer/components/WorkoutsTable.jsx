@@ -3,7 +3,7 @@ import { Table } from 'reactstrap';
 import WorkoutsTableRow from './WorkoutsTableRow';
 import { WorkoutsArray } from '../../../shared/prop-types';
 
-const fetchRows = workouts => workouts.map(workout => <WorkoutsTableRow workout={workout} />);
+const fetchRows = workouts => workouts.map(workout => <WorkoutsTableRow key={workout.id} workout={workout} />);
 
 const WorkoutsTable = ({ workouts }) => (
   <Table dark hover bordered>

@@ -44,9 +44,9 @@ export const fetchDeleteWorkout = workoutId => async (dispatch) => {
   try {
     dispatch(fetchDeleteWorkoutRequest(workoutId));
 
-    await api.workout.delete(workoutId);
+    const response = await api.workout.delete({ workoutId });
 
-    dispatch(fetchDeleteWorkoutSuccess(workoutId));
+    dispatch(fetchDeleteWorkoutSuccess(response.data.workoutId));
   } catch (error) {
     dispatch(fetchDeleteWorkoutFailure(error));
   }

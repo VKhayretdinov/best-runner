@@ -1,11 +1,18 @@
 import React from 'react';
 import { Table } from 'reactstrap';
+import PropTypes from 'prop-types';
 import WorkoutsTableRow from './WorkoutsTableRow';
 import { WorkoutsArray } from '../../../shared/prop-types';
 
-const fetchRows = workouts => workouts.map(workout => <WorkoutsTableRow key={workout.id} workout={workout} />);
+const fetchRows = (workouts, handleDelete, handleUpdate) => workouts.map(workout =>
+  (<WorkoutsTableRow
+    key={workout.id}
+    workout={workout}
+    handleDelete={handleDelete}
+    handleUpdate={handleUpdate}
+  />));
 
-const WorkoutsTable = ({ workouts }) => (
+const WorkoutsTable = ({ workouts, handleDelete, handleUpdate }) => (
   <Table dark hover bordered>
     <thead>
       <tr>
@@ -16,13 +23,15 @@ const WorkoutsTable = ({ workouts }) => (
       </tr>
     </thead>
     <tbody>
-      {fetchRows(workouts)}
+      {fetchRows(workouts, handleDelete, handleUpdate)}
     </tbody>
   </Table>
 );
 
 WorkoutsTable.propTypes = {
   workouts: WorkoutsArray.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleUpdate: PropTypes.func.isRequired,
 };
 
 export default WorkoutsTable;

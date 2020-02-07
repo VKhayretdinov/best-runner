@@ -24,10 +24,11 @@ class WorkoutService {
     return updatedUser.workouts.pop();
   }
 
-  public static async delete(userId, workoutId): Promise<Workout> {
-    return WorkoutModel.findByIdAndUpdate(
+  public static async delete(userId, workoutId) {
+    return UserModel.findByIdAndUpdate(
       userId,
-      { $pull: { workouts: { id: workoutId } } },
+      { $pull: { workouts: { id: mongoose.Types.ObjectId(workoutId) } } },
+      { new: true },
     );
   }
 

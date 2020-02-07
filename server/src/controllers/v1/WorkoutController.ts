@@ -48,9 +48,13 @@ class WorkoutController extends BaseController {
   public async delete(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     logger.info('workoutController remove route entered');
     try {
-      const workout = await WorkoutService.delete(req.user.id, req.body);
+      let { workoutId } = req.body;
 
-      return res.json({ workout });
+      const updatedUser = await WorkoutService.delete(req.user._id, workoutId);
+
+      if (req.user.workouts.length === updatedUser.workouts.length) workoutId = null;
+
+      return res.json({ workoutId });
     } catch (err) {
       return next(err instanceof Error ? err : new VError(err));
     }

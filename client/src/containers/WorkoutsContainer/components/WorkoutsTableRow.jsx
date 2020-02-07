@@ -1,6 +1,6 @@
 import React from 'react';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import PropTypes from 'prop-types';
+import { UpdateIcon, DeleteIcon} from '../styled/icons';
 import { Workout } from '../../../shared/prop-types';
 
 const WorkoutTablesRow = ({
@@ -16,8 +16,8 @@ const WorkoutTablesRow = ({
       <td>{type}</td>
       <td>{distance}</td>
       <td>
-        {/*<FaEdit workout-id={id} onClick={handleUpdate()} />*/}
-        <FaTrashAlt workout-id={id} onClick={handleDelete} />
+        <UpdateIcon workout-id={id} onClick={handleUpdate()} />
+        <DeleteIcon workout-id={id} onClick={handleDelete} />
       </td>
     </tr>
   );

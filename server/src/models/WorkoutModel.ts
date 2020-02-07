@@ -2,7 +2,7 @@ import { Typegoose, prop } from 'typegoose';
 import * as mongoose from 'mongoose';
 
 export class Workout extends Typegoose {
-  public _id: mongoose.Types.ObjectId;
+  public id: mongoose.Types.ObjectId;
 
   @prop({ required: true })
   public date: string;
@@ -14,7 +14,7 @@ export class Workout extends Typegoose {
   public distance: number;
 
   @prop()
-  public comment: string;
+  public comment?: string;
 }
 
 const WorkoutModel = new Workout().getModelForClass(Workout);

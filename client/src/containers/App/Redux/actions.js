@@ -40,7 +40,7 @@ export const fetchLogOut = history => async (dispatch) => {
 
     dispatch(fetchLogOutSuccess());
 
-    history.push('/signin')
+    history.push('/signin');
   } catch (error) {
     dispatch(fetchLogOutFailure(error));
   }

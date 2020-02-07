@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import WorkoutsTable from './components/WorkoutsTable';
 import { WorkoutsArray } from '../../shared/prop-types';
 import { fetchWorkouts } from './redux/actions';
+import WorkoutsControlPanel from './containers/WorkoutsControlPanel';
 
-class WorkoutContainer extends Component {
+class WorkoutsContainer extends Component {
   static propTypes = {
     workouts: WorkoutsArray.isRequired,
     fetchWorkouts: PropTypes.func.isRequired,
@@ -19,7 +20,9 @@ class WorkoutContainer extends Component {
   render() {
     return (
       <Fragment>
-        <Row className="mb-3" />
+        <Row className="mb-3">
+          <WorkoutsControlPanel />
+        </Row>
         <Row>
           <Col>
             <WorkoutsTable workouts={this.props.workouts} />
@@ -38,4 +41,4 @@ const mapDispatchToProps = {
   fetchWorkouts,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkoutContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsContainer);

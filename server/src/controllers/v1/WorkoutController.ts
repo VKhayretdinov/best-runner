@@ -26,7 +26,6 @@ class WorkoutController extends BaseController {
       const user = req.user;
 
       const workouts: Workout[] = await WorkoutService.getAll(user._id);
-      console.log(workouts)
 
       return res.json({ workouts });
     } catch (err) {

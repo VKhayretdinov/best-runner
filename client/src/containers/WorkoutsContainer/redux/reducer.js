@@ -22,7 +22,7 @@ const updateWorkouts = (oldWorkouts, updated) => (
   // eslint-disable-next-line array-callback-return,consistent-return
   oldWorkouts.map((workout) => {
     // eslint-disable-next-line no-underscore-dangle
-    if (workout._id === updated._id) {
+    if (workout.id === updated.id) {
       return {
         ...updated,
         date: updated.date,
@@ -38,6 +38,12 @@ const workoutDefaultState = {
   workouts: [],
   isFetching: false,
   error: null,
+  workoutSelectOptions: [
+    { label: 'running', value: 'running' },
+    { label: 'bike', value: 'bike' },
+    { label: 'walking', value: 'walking' },
+    { label: 'skiing', value: 'skiing' },
+  ],
 };
 
 const workoutReducer = handleActions(
@@ -94,7 +100,7 @@ const workoutReducer = handleActions(
       return {
         ...state,
         // eslint-disable-next-line no-underscore-dangle
-        workouts: state.workouts.filter(item => item._id !== payload),
+        workouts: state.workouts.filter(item => item.id !== payload),
         isFetching: false,
         error: null,
       };
@@ -131,23 +137,6 @@ const workoutReducer = handleActions(
   workoutDefaultState,
 );
 
-// TODO: Maybe move it?
-const workoutOptionsDefaultState = {
-  workoutOptions: [
-    { label: 'running', value: 'running' },
-    { label: 'bike', value: 'bike' },
-    { label: 'walking', value: 'walking' },
-    { label: 'skiing', value: 'skiing' },
-  ],
-};
-
-const workoutOptionsReducers = handleActions(
-  {
-  },
-  workoutOptionsDefaultState,
-);
-
 export default combineReducers({
   workouts: workoutReducer,
-  workoutOptions: workoutOptionsReducers,
 });

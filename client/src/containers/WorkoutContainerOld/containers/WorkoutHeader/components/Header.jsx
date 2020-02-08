@@ -4,7 +4,7 @@ import Select from 'react-select';
 import PropTypes from 'prop-types';
 import { AddButton, DeleteButton, EditButton } from '../../../../../shared/styledComponents/Button';
 import MainAlert from '../../../../../shared/alert/MainAlert';
-import TypesFilter from './TypesFilter';
+import TypesFilter from '../../../../WorkoutsContainer/containers/WorkoutsControlPanel/components/TypesFilter';
 
 const Header = ({
   showAddWorkoutModal, showEditWorkoutModal, deleteWorkout, workoutTypes, onChange,

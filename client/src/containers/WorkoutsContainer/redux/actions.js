@@ -79,3 +79,9 @@ export const resetSort = createAction('RESET_SORT_WORKOUTS');
 export const resetSortWorkouts = () => async (dispatch) => {
   dispatch(resetSort());
 };
+
+export const filterByTypes = createAction('FILTER_BY_TYPES');
+
+export const filterWorkoutsByTypes = filters => async (dispatch) => {
+  dispatch(filterByTypes(filters));
+};

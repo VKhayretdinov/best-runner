@@ -5,6 +5,7 @@ import signUpReducer from '../../SignUpContainer/redux/reducer';
 import signInReducer from '../../SignInContainer/redux/reducer';
 import currentUserReducer from './currentUserReducer';
 import workoutReducer from '../../WorkoutsContainer/redux/reducer';
+import controlPanelReducer from '../../WorkoutsContainer/containers/WorkoutsControlPanel/redux/reducer'
 
 export default {
   form: reduxFormReducer,
@@ -14,4 +15,5 @@ export default {
   signIn: signInReducer,
   currentUser: currentUserReducer,
   workout: workoutReducer,
+  controlPanel: controlPanelReducer,
 };

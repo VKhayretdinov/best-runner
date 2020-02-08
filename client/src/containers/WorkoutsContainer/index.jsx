@@ -50,7 +50,9 @@ class WorkoutsContainer extends Component {
     return (
       <Fragment>
         <Row className="mb-3">
-          <WorkoutsControlPanel />
+          <Col>
+            <WorkoutsControlPanel />
+          </Col>
         </Row>
         <Row>
           <Col>

@@ -19,6 +19,7 @@ import {
 
   sortWorkoutsBy,
   resetSort,
+  filterByTypes,
 } from './actions';
 
 const updateWorkouts = (oldWorkouts, updated) => (
@@ -48,6 +49,12 @@ const sort = (data, sortBy, sortedBy) => {
   const sorted = data.sort((cur, next) => (cur.distance > next.distance ? 1 : -1));
 
   return { data: sorted, sortedBy: sortBy };
+};
+
+const filter = (data, filters) => {
+  if (filters.length === 0) return data;
+
+  return data.filter(workout => filters.includes(workout.type));
 };
 
 const workoutDefaultState = {
@@ -169,6 +176,12 @@ const workoutReducer = handleActions(
         ...state,
         workouts: [...state.unSortedWorkouts],
         sortedBy: '',
+      };
+    },
+    [filterByTypes](state, { payload }) {
+      return {
+        ...state,
+        workouts: filter([...state.unSortedWorkouts], payload),
       };
     },
   },

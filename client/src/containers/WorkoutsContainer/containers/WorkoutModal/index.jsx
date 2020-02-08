@@ -8,14 +8,16 @@ import {
 } from './styled';
 import { hideModal } from '../../../../shared/modal/redux/actions';
 import Workout from './components/Workout';
-import { WorkoutSelectOptions } from '../../../../shared/prop-types';
-import { fetchCreateWorkout } from '../../redux/actions';
+import { Workout as WorkoutProps, WorkoutSelectOptions } from '../../../../shared/prop-types';
+import { fetchCreateWorkout, fetchUpdateWorkout } from '../../redux/actions';
 
 class WorkoutModal extends Component {
   static propTypes = {
     hideModal: PropTypes.func.isRequired,
     options: WorkoutSelectOptions.isRequired,
     fetchCreateWorkout: PropTypes.func.isRequired,
+    fetchUpdateWorkout: WorkoutProps.isRequired,
+    currentWorkout: WorkoutProps.isRequired,
   };
 
   onSubmit = (formValues) => {
@@ -23,12 +25,21 @@ class WorkoutModal extends Component {
 
     workout.type = formValues.type.value;
     workout.distance = Number(formValues.distance);
-    this.props.fetchCreateWorkout(workout);
+    // eslint-disable-next-line no-unused-expressions
+    this.props.currentWorkout ? this.props.fetchUpdateWorkout(workout) : this.props.fetchCreateWorkout(workout);
   };
 
   closeModal = (e) => {
     e.preventDefault();
     this.props.hideModal();
+  };
+
+  initValues = () => {
+    const initValues = Object.assign({}, this.props.currentWorkout);
+
+    initValues.type = { label: initValues.type, value: initValues.type };
+
+    return initValues;
   };
 
   render() {
@@ -37,7 +48,7 @@ class WorkoutModal extends Component {
         <StyledClose onClick={this.closeModal}>
           <CloseIcon />
         </StyledClose>
-        <Workout onSubmit={this.onSubmit} options={this.props.options} />
+        <Workout onSubmit={this.onSubmit} options={this.props.options} initialValues={this.initValues()} />
       </StyledModalContent>);
   }
 }
@@ -49,6 +60,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   hideModal,
   fetchCreateWorkout,
+  fetchUpdateWorkout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutModal);

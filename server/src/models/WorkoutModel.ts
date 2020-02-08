@@ -1,8 +1,7 @@
 import { Typegoose, prop } from 'typegoose';
-import * as mongoose from 'mongoose';
 
 export class Workout extends Typegoose {
-  public id: mongoose.Types.ObjectId;
+  public id: string;
 
   @prop({ required: true })
   public date: string;

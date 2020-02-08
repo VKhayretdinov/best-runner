@@ -63,9 +63,9 @@ class WorkoutController extends BaseController {
   public async update(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     logger.info('workoutController update route entered');
     try {
-      const workouts = await WorkoutService.update(req.user._id, req.body);
+      const workout = await WorkoutService.update(req.user._id, req.body);
 
-      return res.json({ workouts });
+      return res.json({ workout });
     } catch (err) {
       return next(err instanceof Error ? err : new VError(err));
     }

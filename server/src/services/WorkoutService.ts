@@ -13,7 +13,7 @@ class WorkoutService {
   }
 
   public static async create(userId: string, workout: Workout): Promise<Workout | null> {
-    workout.id = new mongoose.mongo.ObjectId();
+    workout.id = new mongoose.mongo.ObjectId().toHexString();
 
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
@@ -27,13 +27,13 @@ class WorkoutService {
   public static async delete(userId, workoutId) {
     return UserModel.findByIdAndUpdate(
       userId,
-      { $pull: { workouts: { id: mongoose.Types.ObjectId(workoutId) } } },
+      { $pull: { workouts: { id: workoutId } } },
       { new: true },
     );
   }
 
   public static async update(userId: string, workout: Workout): Promise<Workout> {
-    return WorkoutModel.findOneAndUpdate(
+    const updatedUser = await UserModel.findOneAndUpdate(
       { _id: userId, 'workouts.id': workout.id },
       { $set: {
         'workouts.$.date': workout.date,
@@ -42,7 +42,10 @@ class WorkoutService {
         'workouts.$.comment': workout.comment,
       },
       },
-      );
+      { new: true },
+      ).lean();
+
+    return updatedUser ? workout : null;
   }
 }
 

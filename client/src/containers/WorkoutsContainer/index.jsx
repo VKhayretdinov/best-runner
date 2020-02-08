@@ -6,12 +6,14 @@ import WorkoutsTable from './components/WorkoutsTable';
 import { WorkoutsArray } from '../../shared/prop-types';
 import { fetchWorkouts, fetchDeleteWorkout } from './redux/actions';
 import WorkoutsControlPanel from './containers/WorkoutsControlPanel';
+import { showModal } from '../../shared/modal/redux/actions';
 
 class WorkoutsContainer extends Component {
   static propTypes = {
     workouts: WorkoutsArray.isRequired,
     fetchWorkouts: PropTypes.func.isRequired,
     fetchDeleteWorkout: PropTypes.func.isRequired,
+    showModal: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -23,8 +25,13 @@ class WorkoutsContainer extends Component {
     this.props.fetchDeleteWorkout(workoutId);
   };
 
-  handleUpdate = () => {
+  handleUpdate = (e) => {
+    const workoutId = e.currentTarget.getAttribute('workout-id');
 
+    const currentWorkout = this.props.workouts.find(workout => workout.id === workoutId);
+    const modalProps = { currentWorkout };
+
+    this.props.showModal('WorkoutModal', modalProps);
   };
 
   render() {
@@ -54,6 +61,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchWorkouts,
   fetchDeleteWorkout,
+  showModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsContainer);

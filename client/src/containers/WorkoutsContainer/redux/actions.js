@@ -62,9 +62,7 @@ export const fetchUpdateWorkout = workout => async (dispatch) => {
 
     const response = await api.workout.update(workout);
 
-    const { updatedWorkout } = response.data;
-
-    dispatch(fetchUpdateWorkoutSuccess(updatedWorkout));
+    dispatch(fetchUpdateWorkoutSuccess(response.data.workout));
   } catch (error) {
     dispatch(fetchUpdateWorkoutFailure(error));
   }

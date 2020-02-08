@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import WorkoutsTable from './components/WorkoutsTable';
 import { WorkoutsArray } from '../../shared/prop-types';
-import { fetchWorkouts, fetchDeleteWorkout } from './redux/actions';
+import { fetchWorkouts, fetchDeleteWorkout, sortWorkouts } from './redux/actions';
 import WorkoutsControlPanel from './containers/WorkoutsControlPanel';
 import { showModal } from '../../shared/modal/redux/actions';
 
@@ -14,6 +14,7 @@ class WorkoutsContainer extends Component {
     fetchWorkouts: PropTypes.func.isRequired,
     fetchDeleteWorkout: PropTypes.func.isRequired,
     showModal: PropTypes.func.isRequired,
+    sortWorkouts: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -22,6 +23,7 @@ class WorkoutsContainer extends Component {
 
   handleDelete = (e) => {
     const workoutId = e.currentTarget.getAttribute('workout-id');
+
     this.props.fetchDeleteWorkout(workoutId);
   };
 
@@ -32,6 +34,10 @@ class WorkoutsContainer extends Component {
     const modalProps = { currentWorkout };
 
     this.props.showModal('WorkoutModal', modalProps);
+  };
+
+  handleSort = (sortBy) => {
+    this.props.sortWorkouts(sortBy);
   };
 
   render() {
@@ -46,6 +52,7 @@ class WorkoutsContainer extends Component {
               workouts={this.props.workouts}
               handleDelete={this.handleDelete}
               handleUpdate={this.handleUpdate}
+              handleSort={this.handleSort}
             />
           </Col>
         </Row>
@@ -62,6 +69,7 @@ const mapDispatchToProps = {
   fetchWorkouts,
   fetchDeleteWorkout,
   showModal,
+  sortWorkouts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsContainer);

@@ -67,3 +67,9 @@ export const fetchUpdateWorkout = workout => async (dispatch) => {
     dispatch(fetchUpdateWorkoutFailure(error));
   }
 };
+
+export const sortWorkoutsBy = createAction('SORT_WORKOUTS');
+
+export const sortWorkouts = sortBy => async (dispatch) => {
+  dispatch(sortWorkoutsBy(sortBy));
+};

@@ -16,6 +16,8 @@ import {
   fetchUpdateWorkoutRequest,
   fetchUpdateWorkoutSuccess,
   fetchUpdateWorkoutFailure,
+
+  sortWorkoutsBy,
 } from './actions';
 
 const updateWorkouts = (oldWorkouts, updated) => (
@@ -34,7 +36,22 @@ const updateWorkouts = (oldWorkouts, updated) => (
   })
 );
 
+const sort = (data, sortBy, sortedBy) => {
+  if (sortedBy === sortBy) return { data: data.reverse(), sortedBy };
+
+  if (sortBy === 'date') {
+    const sorted = data.sort((cur, next) => (cur.date > next.date ? 1 : -1));
+    return { data: sorted, sortedBy: sortBy };
+  }
+
+  const sorted = data.sort((cur, next) => (cur.distance > next.distance ? 1 : -1));
+
+  return { data: sorted, sortedBy: sortBy };
+};
+
 const workoutDefaultState = {
+  unSortedWorkouts: [],
+  sortedBy: null,
   workouts: [],
   isFetching: false,
   error: null,
@@ -58,6 +75,7 @@ const workoutReducer = handleActions(
       return {
         ...state,
         workouts: [...payload],
+        unSortedWorkouts: [...payload],
         isFetching: false,
         error: null,
       };
@@ -79,6 +97,8 @@ const workoutReducer = handleActions(
       return {
         ...state,
         workouts: [...state.workouts, payload],
+        unSortedWorkouts: [...state.unSortedWorkouts, payload],
+        sortedBy: null,
         isFetching: false,
         error: 'null',
       };
@@ -101,6 +121,7 @@ const workoutReducer = handleActions(
         ...state,
         // eslint-disable-next-line no-underscore-dangle
         workouts: state.workouts.filter(item => item.id !== payload),
+        unSortedWorkouts: state.unSortedWorkouts.filter(item => item.id !== payload),
         isFetching: false,
         error: null,
       };
@@ -121,7 +142,8 @@ const workoutReducer = handleActions(
     [fetchUpdateWorkoutSuccess](state, { payload }) {
       return {
         ...state,
-        workouts: updateWorkouts(state.workouts, payload),
+        workouts: updateWorkouts([...state.workouts], payload),
+        unSortedWorkouts: updateWorkouts([...state.unSortedWorkouts], payload),
         isFetching: false,
         error: 'null',
       };
@@ -131,6 +153,14 @@ const workoutReducer = handleActions(
         ...state,
         isFetching: false,
         error: payload,
+      };
+    },
+    [sortWorkoutsBy](state, { payload }) {
+      const { data, sortedBy } = sort([...state.workouts], payload, state.sortedBy);
+      return {
+        ...state,
+        workouts: data,
+        sortedBy,
       };
     },
   },

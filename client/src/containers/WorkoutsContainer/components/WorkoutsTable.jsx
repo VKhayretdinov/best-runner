@@ -12,13 +12,15 @@ const fetchRows = (workouts, handleDelete, handleUpdate) => workouts.map(workout
     handleUpdate={handleUpdate}
   />));
 
-const WorkoutsTable = ({ workouts, handleDelete, handleUpdate }) => (
+const WorkoutsTable = ({
+  workouts, handleDelete, handleUpdate, handleSort,
+}) => (
   <Table dark hover bordered>
     <thead>
       <tr>
-        <th>Date</th>
+        <th onClick={() => handleSort('date')}>Date</th>
         <th>Type</th>
-        <th>Distance</th>
+        <th onClick={() => handleSort('distance')}>Distance</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -32,6 +34,7 @@ WorkoutsTable.propTypes = {
   workouts: WorkoutsArray.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleUpdate: PropTypes.func.isRequired,
+  handleSort: PropTypes.func.isRequired,
 };
 
 export default WorkoutsTable;

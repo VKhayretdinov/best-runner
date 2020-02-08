@@ -73,3 +73,9 @@ export const sortWorkoutsBy = createAction('SORT_WORKOUTS');
 export const sortWorkouts = sortBy => async (dispatch) => {
   dispatch(sortWorkoutsBy(sortBy));
 };
+
+export const resetSort = createAction('RESET_SORT_WORKOUTS');
+
+export const resetSortWorkouts = () => async (dispatch) => {
+  dispatch(resetSort());
+};

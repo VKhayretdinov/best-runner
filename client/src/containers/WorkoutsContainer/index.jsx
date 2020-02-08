@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import WorkoutsTable from './components/WorkoutsTable';
 import { WorkoutsArray } from '../../shared/prop-types';
-import { fetchWorkouts, fetchDeleteWorkout, sortWorkouts } from './redux/actions';
+import { fetchWorkouts, fetchDeleteWorkout, sortWorkouts, resetSortWorkouts } from './redux/actions';
 import WorkoutsControlPanel from './containers/WorkoutsControlPanel';
 import { showModal } from '../../shared/modal/redux/actions';
 
@@ -15,6 +15,8 @@ class WorkoutsContainer extends Component {
     fetchDeleteWorkout: PropTypes.func.isRequired,
     showModal: PropTypes.func.isRequired,
     sortWorkouts: PropTypes.func.isRequired,
+    sortedBy: PropTypes.string.isRequired,
+    resetSortWorkouts: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -40,6 +42,10 @@ class WorkoutsContainer extends Component {
     this.props.sortWorkouts(sortBy);
   };
 
+  handleResetSort = () => {
+    this.props.resetSortWorkouts();
+  };
+
   render() {
     return (
       <Fragment>
@@ -53,6 +59,8 @@ class WorkoutsContainer extends Component {
               handleDelete={this.handleDelete}
               handleUpdate={this.handleUpdate}
               handleSort={this.handleSort}
+              sortedBy={this.props.sortedBy}
+              handleReset={this.handleResetSort}
             />
           </Col>
         </Row>
@@ -63,6 +71,7 @@ class WorkoutsContainer extends Component {
 
 const mapStateToProps = state => ({
   workouts: state.workout.workouts.workouts,
+  sortedBy: state.workout.workouts.sortedBy,
 });
 
 const mapDispatchToProps = {
@@ -70,6 +79,7 @@ const mapDispatchToProps = {
   fetchDeleteWorkout,
   showModal,
   sortWorkouts,
+  resetSortWorkouts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsContainer);

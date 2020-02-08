@@ -18,6 +18,7 @@ import {
   fetchUpdateWorkoutFailure,
 
   sortWorkoutsBy,
+  resetSort,
 } from './actions';
 
 const updateWorkouts = (oldWorkouts, updated) => (
@@ -51,7 +52,7 @@ const sort = (data, sortBy, sortedBy) => {
 
 const workoutDefaultState = {
   unSortedWorkouts: [],
-  sortedBy: null,
+  sortedBy: '',
   workouts: [],
   isFetching: false,
   error: null,
@@ -98,7 +99,7 @@ const workoutReducer = handleActions(
         ...state,
         workouts: [...state.workouts, payload],
         unSortedWorkouts: [...state.unSortedWorkouts, payload],
-        sortedBy: null,
+        sortedBy: '',
         isFetching: false,
         error: 'null',
       };
@@ -161,6 +162,13 @@ const workoutReducer = handleActions(
         ...state,
         workouts: data,
         sortedBy,
+      };
+    },
+    [resetSort](state) {
+      return {
+        ...state,
+        workouts: [...state.unSortedWorkouts],
+        sortedBy: '',
       };
     },
   },

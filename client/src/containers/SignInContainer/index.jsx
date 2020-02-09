@@ -17,7 +17,7 @@ class SignInContainer extends Component {
 
   handleSignInFormSubmit = async (formValues) => {
     await this.props.fetchSignIn(formValues);
-    // console.log(localStorage.getItem('token'))
+
     this.props.fetchCurrentUser();
   };
 

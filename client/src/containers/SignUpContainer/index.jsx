@@ -25,7 +25,7 @@ class SignUpContainer extends Component {
         </Row>
         <Row className="justify-content-center mt-3">
           <Col xs={4}>
-            {this.props.isError && (<Alert>User not found.</Alert>)}
+            {this.props.isError && (<Alert>Incorrect inputs.</Alert>)}
           </Col>
         </Row>
       </Fragment>

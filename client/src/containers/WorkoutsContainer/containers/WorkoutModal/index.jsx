@@ -20,13 +20,16 @@ class WorkoutModal extends Component {
     currentWorkout: WorkoutProps.isRequired,
   };
 
-  onSubmit = (formValues) => {
+  onSubmit = async (formValues) => {
     const workout = Object.assign({}, formValues);
 
     workout.type = formValues.type.value;
     workout.distance = Number(formValues.distance);
-    // eslint-disable-next-line no-unused-expressions
-    this.props.currentWorkout ? this.props.fetchUpdateWorkout(workout) : this.props.fetchCreateWorkout(workout);
+
+    // eslint-disable-next-line max-len
+    const res = this.props.currentWorkout ? await this.props.fetchUpdateWorkout(workout) : await this.props.fetchCreateWorkout(workout);
+
+    if (res) this.props.hideModal();
   };
 
   closeModal = (e) => {

@@ -5,12 +5,13 @@ import WorkoutsTableRow from './WorkoutsTableRow';
 import { WorkoutsArray } from '../../../shared/prop-types';
 import { SortIcon, ResetSortIcon } from '../styled/icons';
 
-const fetchRows = (workouts, handleDelete, handleUpdate) => workouts.map(workout =>
+const fetchRows = (workouts, handleDelete, handleUpdate, handleView) => workouts.map(workout =>
   (<WorkoutsTableRow
     key={workout.id}
     workout={workout}
     handleDelete={handleDelete}
     handleUpdate={handleUpdate}
+    handleView={handleView}
   />));
 
 const showResetIcon = (sortedBy, columnName, handleReset) => (
@@ -18,7 +19,7 @@ const showResetIcon = (sortedBy, columnName, handleReset) => (
 );
 
 const WorkoutsTable = ({
-  workouts, handleDelete, handleUpdate, handleSort, sortedBy, handleReset,
+  workouts, handleDelete, handleUpdate, handleSort, handleView, sortedBy, handleReset,
 }) => (
   <Table dark hover bordered>
     <thead>
@@ -38,7 +39,7 @@ const WorkoutsTable = ({
       </tr>
     </thead>
     <tbody>
-      {fetchRows(workouts, handleDelete, handleUpdate)}
+      {fetchRows(workouts, handleDelete, handleUpdate, handleView)}
     </tbody>
   </Table>
 );
@@ -47,6 +48,7 @@ WorkoutsTable.propTypes = {
   workouts: WorkoutsArray.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleUpdate: PropTypes.func.isRequired,
+  handleView: PropTypes.func.isRequired,
   handleSort: PropTypes.func.isRequired,
   sortedBy: PropTypes.string.isRequired,
   handleReset: PropTypes.func.isRequired,

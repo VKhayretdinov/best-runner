@@ -23,6 +23,12 @@ class WorkoutsContainer extends Component {
     this.props.fetchWorkouts();
   }
 
+  getClickedWorkout = (e) => {
+    const workoutId = e.currentTarget.getAttribute('workout-id');
+
+    return this.props.workouts.find(workout => workout.id === workoutId);
+  };
+
   handleDelete = (e) => {
     const workoutId = e.currentTarget.getAttribute('workout-id');
 
@@ -30,13 +36,21 @@ class WorkoutsContainer extends Component {
   };
 
   handleUpdate = (e) => {
-    const workoutId = e.currentTarget.getAttribute('workout-id');
-
-    const currentWorkout = this.props.workouts.find(workout => workout.id === workoutId);
+    const currentWorkout = this.getClickedWorkout(e);
     const modalProps = { currentWorkout };
 
     this.props.showModal('WorkoutModal', modalProps);
   };
+
+  handleView = (e) => {
+    const currentWorkout = this.getClickedWorkout(e);
+    const modalProps = {
+      currentWorkout,
+      isInfo: true,
+    };
+
+    this.props.showModal('WorkoutModal', modalProps);
+  }
 
   handleSort = (sortBy) => {
     this.props.sortWorkouts(sortBy);
@@ -61,6 +75,7 @@ class WorkoutsContainer extends Component {
               handleDelete={this.handleDelete}
               handleUpdate={this.handleUpdate}
               handleSort={this.handleSort}
+              handleView={this.handleView}
               sortedBy={this.props.sortedBy}
               handleReset={this.handleResetSort}
             />

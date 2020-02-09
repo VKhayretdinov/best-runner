@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'react-emotion';
+import { Card } from 'reactstrap';
 
 export const StyledModalContent = styled.div`
   position: relative;
@@ -21,6 +22,12 @@ export const StyledClose = styled.button`
 export const IconStyle = styled.svg`
   width: 24px;
   height: 24px;
+`;
+
+export const WorkoutCard = styled(Card)`
+  margin-top: 40px;
+  background: #343a40;
+  color: #ffffff;
 `;
 
 export const CloseIcon = () => (

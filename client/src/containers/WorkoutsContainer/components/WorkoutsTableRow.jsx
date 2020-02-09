@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { UpdateIcon, DeleteIcon } from '../styled/icons';
+import { UpdateIcon, DeleteIcon, ViewIcon } from '../styled/icons';
 import { Workout } from '../../../shared/prop-types';
 
 const WorkoutTablesRow = ({
-  workout, handleDelete, handleUpdate,
+  workout, handleDelete, handleUpdate, handleView,
 }) => {
   const {
     date, type, distance, id,
@@ -18,6 +18,7 @@ const WorkoutTablesRow = ({
       <td>
         <UpdateIcon workout-id={id} onClick={handleUpdate} />
         <DeleteIcon workout-id={id} onClick={handleDelete} />
+        <ViewIcon workout-id={id} onClick={handleView} />
       </td>
     </tr>
   );
@@ -27,6 +28,7 @@ WorkoutTablesRow.propTypes = {
   workout: Workout.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleUpdate: PropTypes.func.isRequired,
+  handleView: PropTypes.func.isRequired,
 };
 
 export default WorkoutTablesRow;

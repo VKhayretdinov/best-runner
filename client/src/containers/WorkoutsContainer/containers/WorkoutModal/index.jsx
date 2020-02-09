@@ -10,6 +10,7 @@ import { hideModal } from '../../../../shared/modal/redux/actions';
 import Workout from './components/Workout';
 import { Workout as WorkoutProps, WorkoutSelectOptions } from '../../../../shared/prop-types';
 import { fetchCreateWorkout, fetchUpdateWorkout } from '../../redux/actions';
+import WorkoutInfo from './components/WorkoutInfo';
 
 class WorkoutModal extends Component {
   static propTypes = {
@@ -18,6 +19,11 @@ class WorkoutModal extends Component {
     fetchCreateWorkout: PropTypes.func.isRequired,
     fetchUpdateWorkout: WorkoutProps.isRequired,
     currentWorkout: WorkoutProps.isRequired,
+    isInfo: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    isInfo: false,
   };
 
   onSubmit = async (formValues) => {
@@ -45,13 +51,19 @@ class WorkoutModal extends Component {
     return initValues;
   };
 
+  modalContent = () => {
+    if (this.props.isInfo) return <WorkoutInfo workout={this.props.currentWorkout} />;
+
+    return <Workout onSubmit={this.onSubmit} options={this.props.options} initialValues={this.initValues()} />;
+  };
+
   render() {
     return (
       <StyledModalContent>
         <StyledClose onClick={this.closeModal}>
           <CloseIcon />
         </StyledClose>
-        <Workout onSubmit={this.onSubmit} options={this.props.options} initialValues={this.initValues()} />
+        {this.modalContent()}
       </StyledModalContent>);
   }
 }

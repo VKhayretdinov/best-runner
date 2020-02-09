@@ -1,31 +1,30 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { AddButton, LogOutButton } from '../../../../../shared/styledComponents/Button';
 import TypesFilter from './TypesFilter';
-import { ButtonsGroup } from '../styled';
+import { InlineControlPanel } from '../styled';
 
 const ControlPanel = ({
   handleAddWorkout, filterTypes, handleChange, handleLogOut,
 }) => (
-  <Fragment>
-    <ButtonsGroup>
-      <AddButton
-        type="button"
-        className="mr-3"
-        onClick={handleAddWorkout}
-      >
+  <InlineControlPanel>
+    <AddButton
+      type="button"
+      onClick={handleAddWorkout}
+    >
         ADD
-      </AddButton>
-      <LogOutButton
-        type="button"
-        className="mr-3"
-        onClick={handleLogOut}
-      >
-        LOG OUT
-      </LogOutButton>
-    </ButtonsGroup>
+    </AddButton>
+
     <TypesFilter types={filterTypes} onChange={handleChange} />
-  </Fragment>
+
+    <LogOutButton
+      type="button"
+      onClick={handleLogOut}
+    >
+        LOG OUT
+    </LogOutButton>
+
+  </InlineControlPanel>
 );
 
 ControlPanel.propTypes = {

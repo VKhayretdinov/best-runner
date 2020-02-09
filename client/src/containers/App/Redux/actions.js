@@ -34,7 +34,7 @@ export const fetchLogOutFailure = createAction('FETCH_LOG_OUT_FAILURE');
 export const fetchLogOut = history => async (dispatch) => {
   try {
     dispatch(fetchLogOutRequest());
-    // TODO: Check api result
+
     await api.auth.logout();
     localStorage.clear();
 

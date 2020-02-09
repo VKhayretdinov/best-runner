@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcryptjs-then';
 import * as VError from 'verror';
-import passport from '../../middlewares/Passport';
+import Passport from '../../middlewares/Passport';
 import UserModel, { User } from '../../models/UserModel';
 import { AuthService } from '../../services';
 import validate from '../../middlewares/validate';
+import passport from '../../middlewares/Passport';
 import { signUpSchema, signInSchema } from '../../validationSchemas/auth';
 import BaseController from '../BaseController';
 
@@ -18,6 +19,7 @@ class AuthController extends BaseController {
       this.signInError,
     );
     this.router.post('/signup', validate(signUpSchema), this.signUp);
+    this.router.get('/logout', passport.authenticate('jwt', { session: false }), this.logOut);
   }
 
   public signIn(req: Request, res: Response, next: NextFunction): Response | void {
@@ -48,6 +50,18 @@ class AuthController extends BaseController {
       await UserModel.create(userDoc);
 
       return res.status(201).send('Registration completed');
+    } catch (err) {
+      return next(err instanceof Error ? err : new VError(err));
+    }
+  }
+
+  public logOut(req: Request, res: Response, next: NextFunction): Response | void {
+    console.log('LOGOUT');
+
+    try {
+      res.clearCookie('jwt');
+
+      return res.status(200).send('Registration completed');
     } catch (err) {
       return next(err instanceof Error ? err : new VError(err));
     }

@@ -12,7 +12,7 @@ const Header = () => (
   <Navbar expand dark color="dark">
     <Container>
       <Collapse navbar className="w-100">
-        <NavLink className="navbar-brand" to="/">Aspirity Web Template</NavLink>
+        <NavLink className="navbar-brand" to="/">Best runner</NavLink>
         <Nav navbar className="ml-auto">
           <NavItem className="mr-2">
             <NavLink to="/signin" className="nav-link">Sign In</NavLink>

@@ -6,6 +6,7 @@ import { showModal } from '../../../../shared/modal/redux/actions';
 import { WorkoutSelectOptions } from '../../../../shared/prop-types/';
 import { addWorkoutFilter, removeWorkoutFilter } from './redux/actions';
 import { filterWorkoutsByTypes } from '../../redux/actions';
+import { fetchLogOut } from '../../../App/Redux/actions';
 
 class WorkoutsControlPanel extends Component {
   static propTypes = {
@@ -13,6 +14,7 @@ class WorkoutsControlPanel extends Component {
     filterWorkoutsByTypes: PropTypes.func.isRequired,
     addWorkoutFilter: PropTypes.func.isRequired,
     removeWorkoutFilter: PropTypes.func.isRequired,
+    fetchLogOut: PropTypes.func.isRequired,
     workoutSelectOptions: WorkoutSelectOptions.isRequired,
     filters: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   };
@@ -36,12 +38,17 @@ class WorkoutsControlPanel extends Component {
     }
   };
 
+  handleLogOut = () => {
+    this.props.fetchLogOut();
+  };
+
   render() {
     return (
       <ControlPanel
         handleAddWorkout={this.handleAddWorkout}
         filterTypes={this.filterTypes}
         handleChange={this.handleChange}
+        handleLogOut={this.handleLogOut}
       />
     );
   }
@@ -57,6 +64,7 @@ const mapDispatchToProps = {
   filterWorkoutsByTypes,
   addWorkoutFilter,
   removeWorkoutFilter,
+  fetchLogOut,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsControlPanel);

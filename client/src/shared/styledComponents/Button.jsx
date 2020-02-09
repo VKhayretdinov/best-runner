@@ -6,6 +6,7 @@ const cancelButtonColor = '#F3F3F3';
 const addButton = '#00ac00';
 const deleteButton = '#c80000';
 const editButton = '#0000c8';
+const logOutButton = '#343a40';
 
 const PrimaryButton = styled.button`
   background-color: ${primaryButtonColor};
@@ -49,22 +50,12 @@ const AddButton = styled(PrimaryButton)`
   }
 `;
 
-const DeleteButton = styled(PrimaryButton)`
-  background-color: ${deleteButton};
+const LogOutButton = styled(PrimaryButton)`
+  background-color: ${logOutButton};
   
   &:not([disabled]) {
     &:hover, &:active, &:focus {
-      background-color: ${lighten(0.1, deleteButton)};
-    }
-  }
-`;
-
-const EditButton = styled(PrimaryButton)`
-  background-color: ${editButton};
-  
-  &:not([disabled]) {
-    &:hover, &:active, &:focus {
-      background-color: ${lighten(0.1, editButton)};
+      background-color: ${lighten(0.1, logOutButton)};
     }
   }
 `;
@@ -75,6 +66,5 @@ export {
   PrimaryButton,
   CancelButton,
   AddButton,
-  DeleteButton,
-  EditButton,
+  LogOutButton,
 };

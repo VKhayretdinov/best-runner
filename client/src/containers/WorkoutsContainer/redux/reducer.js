@@ -35,6 +35,7 @@ const updateWorkouts = (oldWorkouts, updated) => (
         comment: updated.comment,
       };
     }
+    return workout;
   })
 );
 

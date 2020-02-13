@@ -4,8 +4,6 @@ import { darken, lighten } from 'polished';
 const primaryButtonColor = '#5FA1DB';
 const cancelButtonColor = '#F3F3F3';
 const addButton = '#00ac00';
-const deleteButton = '#c80000';
-const editButton = '#0000c8';
 const logOutButton = '#343a40';
 
 const PrimaryButton = styled.button`

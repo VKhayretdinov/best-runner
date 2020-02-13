@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
-import PersonDataForm from './components/PersonDataForm';
+import ChartForm from './ChartForm';
 
-const PersonData = ({ handleSubmit, onSubmit }) => (
-  <PersonDataForm
+const ChartPanel = ({ handleSubmit, onSubmit }) => (
+  <ChartForm
     handleSubmit={handleSubmit}
     onSubmit={onSubmit}
   />
 );
 
-PersonData.propTypes = {
+ChartPanel.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
 export default reduxForm({
-  form: 'personDataForm',
-})(PersonData);
+  form: 'ChartForm',
+})(ChartPanel);

@@ -5,15 +5,11 @@ import CustomModal from './styled';
 import { hideModal } from './redux/actions';
 import withSpinner from '../hocs/withSpinner';
 
-import SimpleExampleModal from '../../containers/ExampleContrainer/containers/ExampleModal/components/SimpleModal';
-import CustomExampleModal from '../../containers/ExampleContrainer/containers/ExampleModal/components/CustomModal';
 import WorkoutModal from '../../containers/WorkoutsContainer/containers/WorkoutModal';
 
 // Array contains all custom modals from app
 // To successfully open modal, type prop in "showModal" action should match name from this array
 const modals = {
-  SimpleExampleModal,
-  CustomExampleModal,
   WorkoutModal,
 };
 

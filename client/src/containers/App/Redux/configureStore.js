@@ -11,6 +11,7 @@ export default () => {
   const store = createStore(
     combineReducers(rootReducer),
     [applyMiddleware(thunk)],
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
   );
 
   if (module.hot) {

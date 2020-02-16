@@ -17,13 +17,13 @@ class SignInContainer extends Component {
 
   handleSignInFormSubmit = async (formValues) => {
     await this.props.fetchSignIn(formValues);
-
+    window.location.reload();
     this.props.fetchCurrentUser();
   };
 
   authInfo = () => {
     if (this.props.isError) return (<Alert>User not found.</Alert>);
-    if (this.props.isLogged) return (<Alert>Success!</Alert>);
+    if (this.props.isLogged) return (<Alert>Welcome {this.props.user.email}!</Alert>);
 
     return null;
   };
@@ -52,6 +52,7 @@ class SignInContainer extends Component {
 const mapStateToProps = state => ({
   isLogged: !!state.currentUser.data,
   isError: !!state.signIn.error,
+  user: state.currentUser.data,
 });
 
 const mapDispatchToProps = {

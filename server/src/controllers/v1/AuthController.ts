@@ -56,12 +56,12 @@ class AuthController extends BaseController {
   }
 
   public logOut(req: Request, res: Response, next: NextFunction): Response | void {
-    console.log('LOGOUT');
-
     try {
+      req.logout();
+      // req.user = null;
       res.clearCookie('jwt');
 
-      return res.status(200).send('Registration completed');
+      res.redirect('/');
     } catch (err) {
       return next(err instanceof Error ? err : new VError(err));
     }

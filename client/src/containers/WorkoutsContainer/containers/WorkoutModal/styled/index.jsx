@@ -6,8 +6,8 @@ export const StyledModalContent = styled.div`
   position: relative;
   border-radius: 10px;
   padding: 15px;
-  min-width: 500px;
-  min-height: 500px;
+  min-width: 400px;
+  min-height: 400px;
   background: white;
 `;
 

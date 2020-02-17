@@ -32,7 +32,7 @@ class SignInContainer extends Component {
     return (
       <Fragment>
         <Row className="justify-content-center">
-          <Col xs={4}>
+          <Col sm={6} md={4}>
             <SignIn
               onSubmit={this.handleSignInFormSubmit}
               isError={this.props.isError}
@@ -40,7 +40,7 @@ class SignInContainer extends Component {
           </Col>
         </Row>
         <Row className="justify-content-center mt-3">
-          <Col xs={4}>
+          <Col sm={6} md={4}>
             {this.authInfo()}
           </Col>
         </Row>

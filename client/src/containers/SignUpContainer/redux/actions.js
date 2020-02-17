@@ -13,6 +13,9 @@ export const fetchSignUp = credentials => async (dispatch) => {
 
     dispatch(fetchSignUpSuccess());
   } catch (error) {
-    dispatch(fetchSignUpFailure(error));
+    const err = JSON.parse(JSON.stringify(error));
+    const errors = Object.entries(err.response.data.errors).map(item => item[1].msg);
+
+    dispatch(fetchSignUpFailure(errors));
   }
 };

@@ -23,15 +23,15 @@ const SignUpForm = ({ handleSubmit, onSubmit }) => (
       name="password"
       type="password"
       component={Input}
-      placeholder="Password"
+      placeholder="UpperLowerCase123"
       label="Password"
     />
-    <Field
-      component={Captcha}
-      id="captcha"
-      name="captcha"
-      label="Captcha"
-    />
+    {/* <Field */}
+    {/*  component={Captcha} */}
+    {/*  id="captcha" */}
+    {/*  name="captcha" */}
+    {/*  label="Captcha" */}
+    {/* /> */}
     <Button
       type="submit"
       color="primary"

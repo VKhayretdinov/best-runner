@@ -61,7 +61,7 @@ export default (): Handler => (
       isCustomEmail,
       isPassword,
       isUserNotExistsByEmail,
-      isCaptchaVerified,
+      // isCaptchaVerified,
     },
   })
 );

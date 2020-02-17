@@ -8,24 +8,31 @@ import { fetchSignUp } from './redux/actions';
 class SignUpContainer extends Component {
   static propTypes = {
     fetchSignUp: PropTypes.func.isRequired,
-    isError: PropTypes.bool.isRequired,
+    errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   handleSignUpFormSubmit = formValues => this.props.fetchSignUp(formValues);
+
+  singUpInfo = () => {
+    if (this.props.errors) return (this.props.errors.map(error => (<Alert>{error}</Alert>)));
+    if (this.props.isRegister) return (<Alert>Registration completed!</Alert>);
+
+    return null;
+  }
 
   render() {
     return (
       <Fragment>
         <Row className="justify-content-center">
-          <Col xs={4}>
+          <Col sm={6} md={4}>
             <SignUp
               onSubmit={this.handleSignUpFormSubmit}
             />
           </Col>
         </Row>
         <Row className="justify-content-center mt-3">
-          <Col xs={4}>
-            {this.props.isError && (<Alert>Incorrect inputs.</Alert>)}
+          <Col sm={6} md={4}>
+            {this.singUpInfo()}
           </Col>
         </Row>
       </Fragment>
@@ -34,7 +41,8 @@ class SignUpContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  isError: !!state.signUp.error,
+  errors: state.signUp.error,
+  isRegister: state.signUp.isRegister,
 });
 
 export default connect(mapStateToProps, { fetchSignUp })(SignUpContainer);

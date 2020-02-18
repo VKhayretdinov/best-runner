@@ -1,4 +1,4 @@
-##Best Runner
+###Best Runner
 
 ### Start app
 * Install docker with [instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository)
@@ -23,6 +23,4 @@ where
 Solution: u ran "docker-compose up" instead of "yarn start". Run "yarn install:all" or run depndencies watcher from project folder (ex. cd client, yarn dependencies)
 2. Proxy error, backend requests fails from front-end
 Solution: change container name from webpack to "localhost" if running client from "yarn start:dev"
-
-### Start app
 

@@ -6,17 +6,45 @@ import { Col, Row } from 'reactstrap';
 import { fetchWorkouts, createStructureDistance, renderWorkoutCharts } from './redux/actions';
 import ChartWorkout from './components/ChartWorkout';
 import ChartPanel from './components/ChartPanel';
+import { Workout } from '../../shared/prop-types';
 
 class ChartsContainer extends Component {
   static propTypes = {
     fetchWorkouts: PropTypes.func.isRequired,
     workoutsType: PropTypes.arrayOf(PropTypes.string).isRequired,
-    // sortedWorkouts:
+    sortedWorkouts: PropTypes.shape({
+      bike: PropTypes.arrayOf(Workout),
+      running: PropTypes.arrayOf(Workout),
+      skiing: PropTypes.arrayOf(Workout),
+      walking: PropTypes.arrayOf(Workout),
+    }).isRequired,
+    renderWorkoutCharts: PropTypes.func.isRequired,
+    createStructureDistance: PropTypes.func.isRequired,
+    structuredDistance: PropTypes.shape({
+      bike: PropTypes.arrayOf(PropTypes.number),
+      running: PropTypes.arrayOf(PropTypes.number),
+      skiing: PropTypes.arrayOf(PropTypes.number),
+      walking: PropTypes.arrayOf(PropTypes.number),
+    }).isRequired,
+    isRenderCharts: PropTypes.bool.isRequired,
   };
 
   componentWillMount() {
     this.props.fetchWorkouts();
   }
+
+  getColumnLabels = (obj) => {
+    let columnLabels = [];
+    const keys = Object.keys(obj);
+
+    const firstKeyValues = obj[keys[0]];
+
+    if (keys.length) {
+      columnLabels = firstKeyValues.map((type, index) => (index + 1));
+    }
+
+    return columnLabels;
+  };
 
   structureDistance = (weeks) => {
     const distanceByTypes = {};
@@ -60,25 +88,13 @@ class ChartsContainer extends Component {
     this.props.renderWorkoutCharts(true);
   };
 
-  getColumnLabels = (obj) => {
-    let columnLabels = [];
-    const keys = Object.keys(obj);
-
-    const firstKeyValues = obj[keys[0]];
-
-    if (keys.length) {
-      columnLabels = firstKeyValues.map((type, index) => (index + 1));
-    }
-
-    return columnLabels;
-  };
-
   showCharts = () => {
     const columnLabels = this.getColumnLabels(this.props.structuredDistance);
 
     return (
       this.props.workoutsType.map(type =>
         (<ChartWorkout
+          key={type}
           chartLabel={type}
           columnLabels={columnLabels}
           dataset={this.props.structuredDistance[type]}

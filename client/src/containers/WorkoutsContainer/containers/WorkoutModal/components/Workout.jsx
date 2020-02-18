@@ -20,13 +20,13 @@ Workout.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   options: WorkoutSelectOptions.isRequired,
   initialValues: PropTypes.shape({
-    date: PropTypes.string.isRequired,
+    date: PropTypes.string,
     type: PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+      label: PropTypes.string,
+      value: PropTypes.string,
     }).isRequired,
-    distance: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
+    distance: PropTypes.number,
+    comment: PropTypes.string,
   }),
 };
 

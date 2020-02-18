@@ -17,13 +17,14 @@ class WorkoutModal extends Component {
     hideModal: PropTypes.func.isRequired,
     options: WorkoutSelectOptions.isRequired,
     fetchCreateWorkout: PropTypes.func.isRequired,
-    fetchUpdateWorkout: WorkoutProps.isRequired,
-    currentWorkout: WorkoutProps.isRequired,
+    fetchUpdateWorkout: PropTypes.func.isRequired,
+    currentWorkout: WorkoutProps,
     isInfo: PropTypes.bool,
   };
 
   static defaultProps = {
     isInfo: false,
+    currentWorkout: null,
   };
 
   onSubmit = async (formValues) => {

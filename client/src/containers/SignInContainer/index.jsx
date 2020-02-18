@@ -13,6 +13,15 @@ class SignInContainer extends Component {
     fetchCurrentUser: PropTypes.func.isRequired,
     isError: PropTypes.bool.isRequired,
     isLogged: PropTypes.bool.isRequired,
+    user: PropTypes.shape({
+      _id: PropTypes.string,
+      email: PropTypes.string,
+      password: PropTypes.string,
+    }),
+  };
+
+  static defaultProps = {
+    user: null,
   };
 
   handleSignInFormSubmit = async (formValues) => {
@@ -22,10 +31,10 @@ class SignInContainer extends Component {
   };
 
   authInfo = () => {
-    if (this.props.isError) return (<Alert>User not found.</Alert>);
-    if (this.props.isLogged) return (<Alert>Welcome {this.props.user.email}!</Alert>);
+    if (this.props.isError) return <Alert>User not found.</Alert>;
+    if (this.props.isLogged) return <Alert>Welcome {this.props.user.email}!</Alert>;
 
-    return null;
+    return <Alert>Waiting log in...</Alert>;
   };
 
   render() {
@@ -60,4 +69,4 @@ const mapDispatchToProps = {
   fetchCurrentUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps )(withRouter(SignInContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignInContainer));

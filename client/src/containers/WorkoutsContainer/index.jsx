@@ -20,7 +20,6 @@ class WorkoutsContainer extends Component {
   };
 
   componentDidMount() {
-    console.log('componentDidMount')
     this.props.fetchWorkouts();
   }
 
@@ -51,7 +50,7 @@ class WorkoutsContainer extends Component {
     };
 
     this.props.showModal('WorkoutModal', modalProps);
-  }
+  };
 
   handleSort = (sortBy) => {
     this.props.sortWorkouts(sortBy);

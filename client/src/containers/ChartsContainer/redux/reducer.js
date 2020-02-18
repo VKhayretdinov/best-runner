@@ -9,36 +9,6 @@ import {
   renderCharts,
 } from './actions';
 
-const sortWorkouts = (workouts) => {
-  const sortedWorkouts = {
-    running: [],
-    bike: [],
-    walking: [],
-    skiing: [],
-  };
-
-  workouts.forEach((workout) => {
-    switch (workout.type) {
-      case 'running':
-        sortedWorkouts.running.push(workout);
-        break;
-      case 'bike':
-        sortedWorkouts.bike.push(workout);
-        break;
-      case 'walking':
-        sortedWorkouts.walking.push(workout);
-        break;
-      case 'skiing':
-        sortedWorkouts.skiing.push(workout);
-        break;
-      default:
-        break;
-    }
-  });
-
-  return sortedWorkouts;
-};
-
 const workoutDefaultState = {
   workouts: {
     running: [],

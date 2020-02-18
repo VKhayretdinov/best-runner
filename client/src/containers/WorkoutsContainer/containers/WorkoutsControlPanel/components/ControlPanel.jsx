@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { AddButton, LogOutButton, PrimaryButton } from '../../../../../shared/styledComponents/Button';
 import TypesFilter from './TypesFilter';
 import { ColumnControlPanel, InlineButtonsGroup } from '../styled';
-import { Link } from 'react-router-dom';
 
 const ControlPanel = ({
   handleAddWorkout, filterTypes, handleChange, handleLogOut,
@@ -36,7 +36,7 @@ const ControlPanel = ({
 
 ControlPanel.propTypes = {
   handleAddWorkout: PropTypes.func.isRequired,
-  filterTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filterTypes: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleLogOut: PropTypes.func.isRequired,
 };

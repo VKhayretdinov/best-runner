@@ -6,7 +6,6 @@ import {
   Button,
 } from 'reactstrap';
 import Field from '../../../shared/redux-form-components/CustomField';
-import Captcha from '../../../shared/redux-form-components/Captcha';
 
 const SignUpForm = ({ handleSubmit, onSubmit }) => (
   <Form onSubmit={handleSubmit(onSubmit)}>
@@ -26,12 +25,6 @@ const SignUpForm = ({ handleSubmit, onSubmit }) => (
       placeholder="UpperLowerCase123"
       label="Password"
     />
-    {/* <Field */}
-    {/*  component={Captcha} */}
-    {/*  id="captcha" */}
-    {/*  name="captcha" */}
-    {/*  label="Captcha" */}
-    {/* /> */}
     <Button
       type="submit"
       color="primary"

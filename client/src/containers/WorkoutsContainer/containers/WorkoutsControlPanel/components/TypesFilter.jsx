@@ -6,7 +6,7 @@ import LabelCheckBox from './LabelCheckBox';
 
 const TypesFilter = ({ types, onChange }) => (
   <Form inline>
-    {types().map(item => <LabelCheckBox className="mr-3" text={item} onChange={onChange} />)}
+    {types().map(item => <LabelCheckBox className="mr-3" text={item} key={item} onChange={onChange} />)}
   </Form>
 );
 

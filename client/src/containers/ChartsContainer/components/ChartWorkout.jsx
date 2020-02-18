@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
+import PropTypes from 'prop-types';
 
 class ChartWorkout extends Component {
+  static propTypes = {
+    columnLabels: PropTypes.arrayOf(PropTypes.number).isRequired,
+    chartLabel: PropTypes.string.isRequired,
+    dataset: PropTypes.arrayOf(PropTypes.number).isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.chartRef = React.createRef();

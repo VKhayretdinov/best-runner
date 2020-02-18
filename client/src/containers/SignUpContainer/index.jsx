@@ -8,17 +8,22 @@ import { fetchSignUp } from './redux/actions';
 class SignUpContainer extends Component {
   static propTypes = {
     fetchSignUp: PropTypes.func.isRequired,
-    errors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    errors: PropTypes.arrayOf(PropTypes.string),
+    isRegister: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    errors: null,
   };
 
   handleSignUpFormSubmit = formValues => this.props.fetchSignUp(formValues);
 
   singUpInfo = () => {
-    if (this.props.errors) return (this.props.errors.map(error => (<Alert>{error}</Alert>)));
+    if (this.props.errors) return (this.props.errors.map(error => (<Alert key={error}>{error}</Alert>)));
     if (this.props.isRegister) return (<Alert>Registration completed!</Alert>);
 
     return null;
-  }
+  };
 
   render() {
     return (

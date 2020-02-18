@@ -9,7 +9,6 @@ import { Field } from 'redux-form';
 import { CustomField, Select } from '../../../../../shared/redux-form-components';
 import { WorkoutSelectOptions } from '../../../../../shared/prop-types';
 
-// TODO: ??
 const required = value => (value ? undefined : 'Required');
 const requiredSelect = select => (select.value ? undefined : 'Required');
 const positiveNumber = value => (Number(value) > 0 ? undefined : 'Enter positive number');

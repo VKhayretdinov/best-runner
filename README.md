@@ -1,4 +1,7 @@
-###Best Runner
+Best Runner
+==============
+
+Workouts accounting app
 
 ### Start app
 * Install docker with [instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository)

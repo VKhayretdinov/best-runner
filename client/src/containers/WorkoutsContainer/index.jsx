@@ -20,6 +20,7 @@ class WorkoutsContainer extends Component {
   };
 
   componentDidMount() {
+    console.log('componentDidMount')
     this.props.fetchWorkouts();
   }
 

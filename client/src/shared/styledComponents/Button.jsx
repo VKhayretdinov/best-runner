@@ -1,7 +1,7 @@
 import styled from 'react-emotion';
 import { darken, lighten } from 'polished';
 
-const primaryButtonColor = '#5FA1DB';
+const primaryButtonColor = '#343a40';
 const cancelButtonColor = '#F3F3F3';
 const addButton = '#00ac00';
 const logOutButton = '#343a40';

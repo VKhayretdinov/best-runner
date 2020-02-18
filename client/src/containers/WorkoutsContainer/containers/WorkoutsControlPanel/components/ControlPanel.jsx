@@ -1,30 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AddButton, LogOutButton } from '../../../../../shared/styledComponents/Button';
+import { AddButton, LogOutButton, PrimaryButton } from '../../../../../shared/styledComponents/Button';
 import TypesFilter from './TypesFilter';
-import { InlineControlPanel } from '../styled';
+import { ColumnControlPanel, InlineButtonsGroup } from '../styled';
+import { Link } from 'react-router-dom';
 
 const ControlPanel = ({
   handleAddWorkout, filterTypes, handleChange, handleLogOut,
 }) => (
-  <InlineControlPanel>
-    <AddButton
-      type="button"
-      onClick={handleAddWorkout}
-    >
+  <ColumnControlPanel>
+    <InlineButtonsGroup>
+      <AddButton
+        type="button"
+        onClick={handleAddWorkout}
+      >
         ADD
-    </AddButton>
+      </AddButton>
 
-    <TypesFilter types={filterTypes} onChange={handleChange} />
+      <PrimaryButton
+        type="button"
+      >
+        <Link to="/charts" style={{ color: 'white', textDecoration: 'none' }}>CHARTS</Link>
+      </PrimaryButton>
 
-    <LogOutButton
-      type="button"
-      onClick={handleLogOut}
-    >
+      <LogOutButton
+        type="button"
+        onClick={handleLogOut}
+      >
         LOG OUT
-    </LogOutButton>
-
-  </InlineControlPanel>
+      </LogOutButton>
+    </InlineButtonsGroup>
+    <TypesFilter types={filterTypes} onChange={handleChange} />
+  </ColumnControlPanel>
 );
 
 ControlPanel.propTypes = {

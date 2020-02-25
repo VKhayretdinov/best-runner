@@ -82,8 +82,14 @@ export const resetSortWorkouts = () => async (dispatch) => {
   dispatch(resetSort());
 };
 
-export const filterByTypes = createAction('FILTER_BY_TYPES');
+export const addFiler = createAction('ADD_FILTER');
 
-export const filterWorkoutsByTypes = filters => async (dispatch) => {
-  dispatch(filterByTypes(filters));
+export const addWorkoutFilter = filter => async (dispatch) => {
+  dispatch(addFiler(filter));
+};
+
+export const removeFiler = createAction('REMOVE_FILTER');
+
+export const removeWorkoutFilter = filter => async (dispatch) => {
+  dispatch(removeFiler(filter));
 };

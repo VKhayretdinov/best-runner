@@ -19,7 +19,8 @@ import {
 
   sortWorkoutsBy,
   resetSort,
-  filterByTypes,
+  addFiler,
+  removeFiler,
 } from './actions';
 
 const updateWorkouts = (oldWorkouts, updated) => (
@@ -39,28 +40,10 @@ const updateWorkouts = (oldWorkouts, updated) => (
   })
 );
 
-const sort = (data, sortBy, sortedBy) => {
-  if (sortedBy === sortBy) return { data: data.reverse(), sortedBy };
-
-  if (sortBy === 'date') {
-    const sorted = data.sort((cur, next) => (cur.date > next.date ? 1 : -1));
-    return { data: sorted, sortedBy: sortBy };
-  }
-
-  const sorted = data.sort((cur, next) => (cur.distance > next.distance ? 1 : -1));
-
-  return { data: sorted, sortedBy: sortBy };
-};
-
-const filter = (data, filters) => {
-  if (filters.length === 0) return data;
-
-  return data.filter(workout => filters.includes(workout.type));
-};
-
 const workoutDefaultState = {
-  unSortedWorkouts: [],
-  sortedBy: '',
+  sortedBy: 'date',
+  direction: 'des',
+  workoutsFilters: [],
   workouts: [],
   isFetching: false,
   error: null,
@@ -84,7 +67,6 @@ const workoutReducer = handleActions(
       return {
         ...state,
         workouts: [...payload],
-        unSortedWorkouts: [...payload],
         isFetching: false,
         error: null,
       };
@@ -106,7 +88,6 @@ const workoutReducer = handleActions(
       return {
         ...state,
         workouts: [...state.workouts, payload],
-        unSortedWorkouts: [...state.unSortedWorkouts, payload],
         sortedBy: '',
         isFetching: false,
         error: 'null',
@@ -130,7 +111,6 @@ const workoutReducer = handleActions(
         ...state,
         // eslint-disable-next-line no-underscore-dangle
         workouts: state.workouts.filter(item => item.id !== payload),
-        unSortedWorkouts: state.unSortedWorkouts.filter(item => item.id !== payload),
         isFetching: false,
         error: null,
       };
@@ -152,7 +132,6 @@ const workoutReducer = handleActions(
       return {
         ...state,
         workouts: updateWorkouts([...state.workouts], payload),
-        unSortedWorkouts: updateWorkouts([...state.unSortedWorkouts], payload),
         isFetching: false,
         error: 'null',
       };
@@ -165,24 +144,35 @@ const workoutReducer = handleActions(
       };
     },
     [sortWorkoutsBy](state, { payload }) {
-      const { data, sortedBy } = sort([...state.workouts], payload, state.sortedBy);
+      let { direction } = state;
+
+      if (payload === state.sortedBy) {
+        // eslint-disable-next-line no-unused-expressions
+        state.direction === 'des' ? (direction = 'asc') : (direction = 'des');
+      }
+
       return {
         ...state,
-        workouts: data,
-        sortedBy,
+        sortedBy: payload,
+        direction,
       };
     },
     [resetSort](state) {
       return {
         ...state,
-        workouts: [...state.unSortedWorkouts],
         sortedBy: '',
       };
     },
-    [filterByTypes](state, { payload }) {
+    [addFiler](state, { payload }) {
       return {
         ...state,
-        workouts: filter([...state.unSortedWorkouts], payload),
+        workoutsFilters: [...state.workoutsFilters, payload],
+      };
+    },
+    [removeFiler](state, { payload }) {
+      return {
+        ...state,
+        workoutsFilters: state.workoutsFilters.filter(item => item !== payload),
       };
     },
   },

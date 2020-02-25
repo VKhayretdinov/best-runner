@@ -7,6 +7,7 @@ import { WorkoutsArray } from '../../shared/prop-types';
 import { fetchWorkouts, fetchDeleteWorkout, sortWorkouts, resetSortWorkouts } from './redux/actions';
 import WorkoutsControlPanel from './containers/WorkoutsControlPanel';
 import { showModal } from '../../shared/modal/redux/actions';
+import sortedWorkoutsSelector from './selectors/Workouts';
 
 class WorkoutsContainer extends Component {
   static propTypes = {
@@ -87,7 +88,7 @@ class WorkoutsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  workouts: state.workout.workouts.workouts,
+  workouts: sortedWorkoutsSelector(state.workout.workouts),
   sortedBy: state.workout.workouts.sortedBy,
 });
 

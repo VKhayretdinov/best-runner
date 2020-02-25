@@ -47,7 +47,11 @@ class WorkoutModal extends Component {
   initValues = () => {
     const initValues = Object.assign({}, this.props.currentWorkout);
 
-    initValues.type = { label: initValues.type, value: initValues.type };
+    if (initValues.type) {
+      initValues.type = { label: initValues.type, value: initValues.type };
+    } else {
+      initValues.type = { label: 'running', value: 'running' };
+    }
 
     return initValues;
   };

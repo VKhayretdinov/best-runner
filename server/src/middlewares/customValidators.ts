@@ -31,28 +31,6 @@ const isUserNotExistsByEmail = async (email: string): Promise<void> => {
   return Promise.resolve();
 };
 
-const isCaptchaVerified = async (captchaResponse: string, userIP: string): Promise<void> => {
-  if (!captchaResponse) { return Promise.reject('Captcha is required'); }
-
-  const captchaUrl = config.get('captcha.url');
-  const captchaSecret = config.get('captcha.secret');
-
-  const verificationResponse = await axios.post(captchaUrl, {}, {
-    params: {
-      secret: captchaSecret,
-      response: captchaResponse,
-      remoteip: userIP,
-    },
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-    },
-  });
-
-  const { success } = verificationResponse.data;
-
-  return success ? Promise.resolve() : Promise.reject('Captcha is not verified');
-};
-
 export default (): Handler => (
   expressValidator({
     customValidators: {
@@ -61,7 +39,6 @@ export default (): Handler => (
       isCustomEmail,
       isPassword,
       isUserNotExistsByEmail,
-      // isCaptchaVerified,
     },
   })
 );

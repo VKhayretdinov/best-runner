@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import WorkoutsTable from './components/WorkoutsTable';
 import { WorkoutsArray } from '../../shared/prop-types';
 import { fetchWorkouts, fetchDeleteWorkout, sortWorkouts, resetSortWorkouts } from './redux/actions';
@@ -33,7 +35,22 @@ class WorkoutsContainer extends Component {
   handleDelete = (e) => {
     const workoutId = e.currentTarget.getAttribute('workout-id');
 
-    this.props.fetchDeleteWorkout(workoutId);
+    confirmAlert({
+      title: 'Delete confirmation',
+      message: 'Are you sure to do this?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            this.props.fetchDeleteWorkout(workoutId);
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => {},
+        },
+      ],
+    });
   };
 
   handleUpdate = (e) => {

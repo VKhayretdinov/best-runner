@@ -84,8 +84,11 @@ class ChartsContainer extends Component {
     await this.props.renderWorkoutCharts(false);
 
     const { weeksAmount } = formValues;
-    this.props.createStructureDistance(this.structureDistance(weeksAmount));
-    this.props.renderWorkoutCharts(true);
+
+    if (weeksAmount) {
+      this.props.createStructureDistance(this.structureDistance(weeksAmount));
+      this.props.renderWorkoutCharts(true);
+    }
   };
 
   showCharts = () => {
